@@ -1,5 +1,4 @@
-- 👋 Hi, I’m @tjddncjs0909
-- ##  Now I'm freshmen in Chuncheon National Univercity of Education in Republic Of Korea(2022 entered)
+- 👋 Hi, I’m @tjddncjs0909, freshmen in Chuncheon National Univercity of Education in Republic Of Korea(2022 entered)
 - 👀 I’m interested in elementary education programming and conventional app making(ex : food map) 
 - 🌱 I’m currently learning Android Studio and Kotlin.
 <!---
