@@ -5,3 +5,10 @@
 tjddncjs0909/tjddncjs0909 is a ✨ special ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 You can click the Preview link to take a look at your changes.
 --->
+
+#pragma warning(disable:4996)
+#define _CRT_SECURE_NO_WARNING
+
+#include<Stdio.h>
+#include<string.h>
+#include<stdlib.h>
