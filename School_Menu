@@ -7,7 +7,7 @@ class School_Menu extends StatelessWidget {
   Widget build(BuildContext context2) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('학식 '),
+        title: Text('학식 메뉴'),
       ),
     );
   }
