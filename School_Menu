@@ -1,0 +1,14 @@
+import 'package:flutter/material.dart';
+
+class School_Menu extends StatelessWidget {
+  const School_Menu({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context2) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('ScreenB'),
+      ),
+    );
+  }
+}
