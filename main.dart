@@ -24,7 +24,6 @@ class MyStatefulWidget extends StatefulWidget {
 }
 
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
-// 탭을 이동할 때 쓸 변수!
   int _selectedIndex = 0;
 
   static const TextStyle optionStyle =
