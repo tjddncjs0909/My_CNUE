@@ -2,6 +2,9 @@
 
 Flutter(Dart)를 이용해 만든 앱으로, 춘천교대 학생들의 학교생활에 도움이 될만한 기능들을 넣어 만들었습니다.
 
+#Developing Period(2022.12.19~)
+
+
 ## Getting Started
 
 For help getting started with Flutter development, view the
