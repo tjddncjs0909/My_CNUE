@@ -1,15 +1,8 @@
-# cnue_food_app
+# My_CNUE
 
-A new Flutter project.
+Flutter(Dart)를 이용해 만든 앱으로, 춘천교대 학생들의 학교생활에 도움이 될만한 기능들을 넣어 만들었습니다.
 
 ## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,

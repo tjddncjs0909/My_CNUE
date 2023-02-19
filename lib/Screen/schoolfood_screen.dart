@@ -1,10 +1,12 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, sort_child_properties_last
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:timer_builder/timer_builder.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class school_food_screen extends StatefulWidget {
   const school_food_screen({Key? key}) : super(key: key);
@@ -15,7 +17,402 @@ class school_food_screen extends StatefulWidget {
 
 class _school_food_screenState extends State<school_food_screen> {
 
-  int _selectedIndex = 1;
+  double menu_font_size = 18;
+
+  // 월요일
+  String Month_mon = "";
+  String Day_mon = "";
+  List<String> menu_mon_1 = [
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+  ];
+  List<String> menu_mon_2 = [
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+  ];
+  List<String> menu_mon_3 = [
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+  ];
+
+  // 화요일
+  String Month_tue = "";
+  String Day_tue = "";
+  List<String> menu_tue_1 = [
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+  ];
+  List<String> menu_tue_2 = [
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+  ];
+  List<String> menu_tue_3 = [
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+  ];
+
+
+  //수요일
+  String Month_wed= "";
+  String Day_wed = "";
+  List<String> menu_wed_1 = [
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+  ];
+  List<String> menu_wed_2 = [
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+  ];
+  List<String> menu_wed_3 = [
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+  ];
+
+  //목요일
+  String Month_thu= "";
+  String Day_thu = "";
+  List<String> menu_thu_1 = [
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+  ];
+  List<String> menu_thu_2 = [
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+  ];
+  List<String> menu_thu_3 = [
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+  ];
+
+  //금요일
+  String Month_fri= "";
+  String Day_fri = "";
+  List<String> menu_fri_1 = [
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+  ];
+  List<String> menu_fri_2 = [
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+  ];
+  List<String> menu_fri_3 = [
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+  ];
+
+
+  //토요일
+  String Month_sat= "";
+  String Day_sat = "";
+  List<String> menu_sat_1 = [
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+  ];
+  List<String> menu_sat_2 = [
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+  ];
+  List<String> menu_sat_3 = [
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+  ];
+
+  //일요일
+  String Month_sun= "";
+  String Day_sun = "";
+  List<String> menu_sun_1 = [
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+  ];
+  List<String> menu_sun_2 = [
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+  ];
+  List<String> menu_sun_3 = [
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+  ];
+
+  final db = FirebaseFirestore.instance;
+
+  Refreshing() {
+    db.collection('1_월요일').doc('1_조식').get().then((DocumentSnapshot ds) {
+      Map<String, dynamic> map = ds.data() as Map<String, dynamic>;
+
+      for (int i = 0; i < 6; i++) {
+        menu_mon_1[i] = map['$i'];
+      }
+      Month_mon = map['mon'];
+      Day_mon = map['day'];
+    }
+    );
+
+    db.collection('1_월요일').doc('2_중식').get().then((DocumentSnapshot ds) {
+      Map<String, dynamic> map = ds.data() as Map<String, dynamic>;
+
+      for (int i = 0; i < 6; i++) {
+        menu_mon_2[i] = map['$i'];
+      }
+    }
+    );
+
+    db.collection('1_월요일').doc('3_석식').get().then((DocumentSnapshot ds) {
+      Map<String, dynamic> map = ds.data() as Map<String, dynamic>;
+
+      for (int i = 0; i < 6; i++) {
+        menu_mon_3[i] = map['$i'];
+      }
+    }
+    );
+
+    db.collection('2_화요일').doc('1_조식').get().then((DocumentSnapshot ds) {
+      Map<String, dynamic> map = ds.data() as Map<String, dynamic>;
+
+      for (int i = 0; i < 6; i++) {
+        menu_tue_1[i] = map['$i'];
+      }
+      Month_tue = map['mon'];
+      Day_tue = map['day'];
+    }
+    );
+    db.collection('2_화요일').doc('2_중식').get().then((DocumentSnapshot ds) {
+      Map<String, dynamic> map = ds.data() as Map<String, dynamic>;
+
+      for (int i = 0; i < 6; i++) {
+        menu_tue_2[i] = map['$i'];
+      }
+    }
+    );
+    db.collection('2_화요일').doc('3_석식').get().then((DocumentSnapshot ds) {
+      Map<String, dynamic> map = ds.data() as Map<String, dynamic>;
+
+      for (int i = 0; i < 6; i++) {
+        menu_tue_3[i] = map['$i'];
+      }
+    }
+    );
+    db.collection('3_수요일').doc('1_조식').get().then((DocumentSnapshot ds) {
+      Map<String, dynamic> map = ds.data() as Map<String, dynamic>;
+
+      for (int i = 0; i < 6; i++) {
+        menu_wed_1[i] = map['$i'];
+      }
+      Month_wed = map['mon'];
+      Day_wed = map['day'];
+    }
+    );
+    db.collection('3_수요일').doc('2_중식').get().then((DocumentSnapshot ds) {
+      Map<String, dynamic> map = ds.data() as Map<String, dynamic>;
+
+      for (int i = 0; i < 6; i++) {
+        menu_wed_2[i] = map['$i'];
+      }
+    }
+    );
+    db.collection('3_수요일').doc('3_석식').get().then((DocumentSnapshot ds) {
+      Map<String, dynamic> map = ds.data() as Map<String, dynamic>;
+
+      for (int i = 0; i < 6; i++) {
+        menu_wed_3[i] = map['$i'];
+      }
+    }
+    );
+    db.collection('4_목요일').doc('1_조식').get().then((DocumentSnapshot ds) {
+      Map<String, dynamic> map = ds.data() as Map<String, dynamic>;
+
+      for (int i = 0; i < 6; i++) {
+        menu_thu_1[i] = map['$i'];
+      }
+      Month_thu = map['mon'];
+      Day_thu = map['day'];
+    }
+    );
+
+    db.collection('4_목요일').doc('2_중식').get().then((DocumentSnapshot ds) {
+      Map<String, dynamic> map = ds.data() as Map<String, dynamic>;
+
+      for (int i = 0; i < 6; i++) {
+        menu_thu_2[i] = map['$i'];
+      }
+    }
+    );
+
+    db.collection('4_목요일').doc('3_석식').get().then((DocumentSnapshot ds) {
+      Map<String, dynamic> map = ds.data() as Map<String, dynamic>;
+
+      for (int i = 0; i < 6; i++) {
+        menu_thu_3[i] = map['$i'];
+      }
+    }
+    );
+    db.collection('5_금요일').doc('1_조식').get().then((DocumentSnapshot ds) {
+      Map<String, dynamic> map = ds.data() as Map<String, dynamic>;
+
+      for (int i = 0; i < 6; i++) {
+        menu_fri_1[i] = map['$i'];
+      }
+      Month_fri = map['mon'];
+      Day_fri = map['day'];
+    }
+    );
+
+    db.collection('5_금요일').doc('2_중식').get().then((DocumentSnapshot ds) {
+      Map<String, dynamic> map = ds.data() as Map<String, dynamic>;
+
+      for (int i = 0; i < 6; i++) {
+        menu_fri_2[i] = map['$i'];
+      }
+    }
+    );
+
+    db.collection('5_금요일').doc('3_석식').get().then((DocumentSnapshot ds) {
+      Map<String, dynamic> map = ds.data() as Map<String, dynamic>;
+
+      for (int i = 0; i < 6; i++) {
+        menu_fri_3[i] = map['$i'];
+      }
+    }
+    );
+    db.collection('6_토요일').doc('1_조식').get().then((DocumentSnapshot ds) {
+      Map<String, dynamic> map = ds.data() as Map<String, dynamic>;
+
+      for (int i = 0; i < 6; i++) {
+        menu_sat_1[i] = map['$i'];
+      }
+      Month_sat = map['mon'];
+      Day_sat = map['day'];
+    }
+    );
+    db.collection('6_토요일').doc('2_중식').get().then((DocumentSnapshot ds) {
+      Map<String, dynamic> map = ds.data() as Map<String, dynamic>;
+
+      for (int i = 0; i < 6; i++) {
+        menu_sat_2[i] = map['$i'];
+      }
+    }
+    );
+    db.collection('6_토요일').doc('3_석식').get().then((DocumentSnapshot ds) {
+      Map<String, dynamic> map = ds.data() as Map<String, dynamic>;
+
+      for (int i = 0; i < 6; i++) {
+        menu_sat_3[i] = map['$i'];
+      }
+    }
+    );
+    db.collection('7_일요일').doc('1_조식').get().then((DocumentSnapshot ds) {
+      Map<String, dynamic> map = ds.data() as Map<String, dynamic>;
+
+      for (int i = 0; i < 6; i++) {
+        menu_sun_1[i] = map['$i'];
+      }
+      Month_sun = map['mon'];
+      Day_sun = map['day'];
+    }
+    );
+
+    db.collection('7_일요일').doc('2_중식').get().then((DocumentSnapshot ds) {
+      Map<String, dynamic> map = ds.data() as Map<String, dynamic>;
+
+      for (int i = 0; i < 6; i++) {
+        menu_sun_2[i] = map['$i'];
+      }
+    }
+    );
+
+    db.collection('7_일요일').doc('3_석식').get().then((DocumentSnapshot ds) {
+      Map<String, dynamic> map = ds.data() as Map<String, dynamic>;
+
+      for (int i = 0; i < 6; i++) {
+        menu_sun_3[i] = map['$i'];
+      }
+    }
+    );
+
+  }
 
   late DateFormat daysFormat;
 
@@ -26,33 +423,55 @@ class _school_food_screenState extends State<school_food_screen> {
     return DateFormat("HH:mm:ss ").format(now);
   }
 
+  void showToast(){
+    Fluttertoast.showToast(
+      msg: "메뉴가 업데이트 되었습니다.",
+      gravity: ToastGravity.BOTTOM,
+      fontSize: 13,
+      toastLength: Toast.LENGTH_SHORT,
+      backgroundColor: Colors.black,
+      textColor: Colors.white70,
+    );
+  }
+
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
+
+    // time calling
     initializeDateFormatting();
     daysFormat = DateFormat.EEEE('ko');
-  }
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+    // calling menu information
+    Refreshing();
   }
-
   final Uri url1 = Uri.parse('https://www.cnue.ac.kr/life/info/food.do');
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Text('학식'),
-          backgroundColor: Colors.blueAccent,
+          title: Text('MY CNUE',
+            style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+            ),
+          ),
+          elevation: 0.0,
+          backgroundColor: Colors.white,
           actions: [
             IconButton(
                 onPressed: (){
+                  Refreshing();
+                  showToast();
                 },
-                icon: Icon(Icons.settings)),
+                icon: Icon(Icons.refresh),
+              color: Colors.black,),
+            IconButton(
+                onPressed: (){
+                },
+                icon: Icon(Icons.settings),
+              color: Colors.black,),
           ]
       ),
       body: SafeArea(
@@ -65,10 +484,10 @@ class _school_food_screenState extends State<school_food_screen> {
                 Text('금주의 학식',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 30,
+                    fontSize: 35,
                   ),),
                 OutlinedButton(
-                  child: Text('식단 메뉴표 원본',
+                  child: Text('메뉴표 원본',
                     style: TextStyle(
                       fontSize: 15
                     ),),
@@ -78,12 +497,17 @@ class _school_food_screenState extends State<school_food_screen> {
                 )
               ],
             ),
-            Text('(3월 6일 ~ 3월 12일)',
-              style: TextStyle(
-                fontSize: 20,
-              ),),
+            TimerBuilder.periodic(Duration(milliseconds: 100), builder: (context){
+              return Text('($Month_mon월 $Day_mon일 ~ $Month_sun월 $Day_sun일)',
+                style: TextStyle(
+                  fontSize: 20,
+                ),
+              );
+            }
+            ),
+
             SizedBox(
-              height: 10,
+              height: 5,
             ),
             Text('* 식단표 공개일 자정에 업데이트 됩니다 *',
               style: TextStyle(
@@ -108,19 +532,11 @@ class _school_food_screenState extends State<school_food_screen> {
                       fontSize: 15,
                   ),
                 ),
-                Text(
-                    daysFormat.format(now1),
-                    style: TextStyle(
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.bold,
-                    )
-                ),
                 TimerBuilder.periodic(Duration(seconds: 1), builder: (context){
-                  print('${getSystemTime()}');
-                  return Text(' ${getSystemTime()}',
+                  return Text('${daysFormat.format(now1)} ${getSystemTime()}',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 20
+                    fontSize: 18
                   ),);
                 }
                 ),
@@ -137,7 +553,7 @@ class _school_food_screenState extends State<school_food_screen> {
               children: [
                 Container(
                   margin: EdgeInsets.all(0),
-                  height: 180,
+                  height: 200,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(50),
                     color: Colors.lightGreen,
@@ -154,37 +570,41 @@ class _school_food_screenState extends State<school_food_screen> {
                 Column(
                   children: [
                     Container(
-                      height: 20,
+                      height: 15,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Column(
                           children: [
-                            Text('    '),
+                            Text('',
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w900
+                              ),),
                             Container(
-                              height: 18,
+                              height: 15,
                             ),
                             Text('조식',
                               style: TextStyle(
-                                  fontSize: 18,
+                                  fontSize: 20,
                                   fontWeight: FontWeight.w900
                               ),
                             ),
                             Container(
-                              height: 7,
+                              height: 15,
                             ),
                             Text('중식',
                               style: TextStyle(
-                                  fontSize: 18,
+                                  fontSize: 20,
                                   fontWeight: FontWeight.w900
                               ),),
                             Container(
-                              height: 10,
+                              height: 15,
                             ),
                             Text('석식',
                               style: TextStyle(
-                                  fontSize: 18,
+                                  fontSize: 20,
                                   fontWeight: FontWeight.w900
                               ),),
                           ],
@@ -197,25 +617,25 @@ class _school_food_screenState extends State<school_food_screen> {
                                   fontWeight: FontWeight.w900
                               ),),
                             Container(
-                              height: 13,
+                              height: 15,
                             ),
                             Text('07:30~09:00',
                               style: TextStyle(
-                                  fontSize: 15,
+                                  fontSize: 20,
                               ),),
                             Container(
-                              height: 13,
+                              height: 15,
                             ),
                             Text('11:30~13:30',
                               style: TextStyle(
-                                  fontSize: 15,
+                                  fontSize: 20,
                               ),),
                             Container(
-                              height: 13,
+                              height: 15,
                             ),
                             Text('17:00~18:30',
                               style: TextStyle(
-                                  fontSize: 15,
+                                  fontSize: 20,
                               ),),
                           ],
                         ),
@@ -227,25 +647,25 @@ class _school_food_screenState extends State<school_food_screen> {
                                   fontWeight: FontWeight.w900
                               ),),
                             Container(
-                              height: 13,
+                              height: 15,
                             ),
                             Text('08:00~09:00',
                               style: TextStyle(
-                                fontSize: 15,
+                                fontSize: 20,
                               ),),
                             Container(
-                              height: 13,
+                              height: 15,
                             ),
                             Text('12:00~13:00',
                               style: TextStyle(
-                                fontSize: 15,
+                                fontSize: 20,
                               ),),
                             Container(
-                              height: 13,
+                              height: 15,
                             ),
                             Text('17:00~18:00',
                               style: TextStyle(
-                                fontSize: 15,
+                                fontSize: 20,
                               ),),
                           ],
                         ),
@@ -264,12 +684,13 @@ class _school_food_screenState extends State<school_food_screen> {
               thickness: 1.5,
               color: Colors.grey,
             ),
-
             // 월요일
-            Text('3월 6일',
-              style: TextStyle(
-                fontSize: 20,
-              ),),
+            TimerBuilder.periodic(Duration(milliseconds: 100), builder: (context){
+              return Text('${Month_mon}월 ${Day_mon}일',
+                style: TextStyle(
+                  fontSize: 20,
+                ),);
+            }),
             Text('월요일',
             style: TextStyle(
               fontSize: 25,
@@ -278,6 +699,7 @@ class _school_food_screenState extends State<school_food_screen> {
             Container(
               height: 20,
             ),
+
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
@@ -285,123 +707,86 @@ class _school_food_screenState extends State<school_food_screen> {
                   Container(
                     width: 50,
                   ),
-                  Column(
-                    children: [
-                      Text('조식',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                      ),),
-                      Container(
-                        height: 15,
-                      ),
-                      Text('★콩비지찌개★',
-                      style: TextStyle(
-                        fontSize: 15,
-                        color: Colors.red
-                      ),),
-                      Text('쌀밥',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text('메추리알곤약조림',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text('오복채무침',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text('열무김치',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text('음료/누룽지',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                    ],
-                  ),
+                  TimerBuilder.periodic(Duration(milliseconds: 100), builder: (context){
+                    return Column(
+                      children: [
+                        Text('조식',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          ),),
+                        Container(
+                          height: 15,
+                        ),
+                        Text('★${menu_mon_1[0]}★',
+                          style: TextStyle(
+                              fontSize: 18,
+                              color: Colors.red
+                          ),),
+                        for(int i=1; i<6; i++)
+                          Text('${menu_mon_1[i]}',
+                            style: TextStyle(
+                              fontSize: 18,
+                            ),),
+                      ],
+                    );
+                  }),
                   Container(
                     width: 100,
                   ),
-                  Column(
-                    children: [
-                      Text('중식',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ),),
-                      Container(
-                        height: 15,
-                      ),
-                      Text('★삼겹살김치찌개★',
-                        style: TextStyle(
-                          fontSize: 15,
-                          color: Colors.red
-                        ),),
-                      Text('쌀밥',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text('생선가스, 타르타르소스',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text('명엽채볶음',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text('깻잎무침',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text('깍두기',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                    ],
-                  ),
+                  TimerBuilder.periodic(Duration(milliseconds: 100), builder: (context){
+                    return Column(
+                      children: [
+                        Text('중식',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          ),),
+                        Container(
+                          height: 15,
+                        ),
+                        Text('★${menu_mon_2[0]}★',
+                          style: TextStyle(
+                              color: Colors.red,
+                              fontSize: menu_font_size,
+                          ),),
+                        for(int i=1; i<6; i++)
+                          Text('${menu_mon_2[i]}',
+                            style: TextStyle(
+                              fontSize: menu_font_size,
+                            ),),
+                      ],
+                    );
+                  }),
+
                   Container(
                     width: 100,
                   ),
-                  Column(
-                    children: [
-                      Text('석식',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ),),
-                      Container(
-                        height: 15,
-                      ),
-                      Text('★함박스테이크, 데미소스★',
-                        style: TextStyle(
-                          fontSize: 15,
-                          color: Colors.red
-                        ),),
-                      Text('쌀밥',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text('맑은우동국물',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text('양배추샐러드, 드레싱',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text('모듬피클',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text(' ',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                    ],
-                  ),
+
+                  TimerBuilder.periodic(Duration(milliseconds: 100), builder: (context){
+                    return Column(
+                      children: [
+                        Text('석식',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          ),),
+                        Container(
+                          height: 15,
+                        ),
+                        Text('★${menu_mon_3[0]}★',
+                          style: TextStyle(
+                              fontSize: menu_font_size,
+                              color: Colors.red
+                          ),),
+                        for(int i=1; i<6; i++)
+                          Text('${menu_mon_3[i]}',
+                            style: TextStyle(
+                              fontSize: menu_font_size,
+                            ),),
+                      ],
+                    );
+                  }),
                   Container(
                     width: 50,
                   ),
@@ -415,10 +800,12 @@ class _school_food_screenState extends State<school_food_screen> {
             ),
 
             // 화요일
-            Text('3월 7일',
-              style: TextStyle(
-                fontSize: 20,
-              ),),
+            TimerBuilder.periodic(Duration(milliseconds: 100), builder: (context){
+              return Text('$Month_tue월 $Day_tue일',
+                style: TextStyle(
+                  fontSize: 20,
+                ),);
+            }),
             Text('화요일',
               style: TextStyle(
                   fontSize: 25,
@@ -434,123 +821,87 @@ class _school_food_screenState extends State<school_food_screen> {
                   Container(
                     width: 50,
                   ),
-                  Column(
-                    children: [
-                      Text('조식',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ),),
-                      Container(
-                        height: 15,
-                      ),
-                      Text('★콩비지찌개★',
-                        style: TextStyle(
-                            fontSize: 15,
-                            color: Colors.red
-                        ),),
-                      Text('쌀밥',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text('메추리알곤약조림',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text('오복채무침',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text('열무김치',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text('음료/누룽지',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                    ],
-                  ),
+                  TimerBuilder.periodic(Duration(milliseconds: 100), builder: (context){
+                    return
+                      Column(
+                        children: [
+                          Text('조식',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                            ),),
+                          Container(
+                            height: 15,
+                          ),
+                          Text('★${menu_tue_1[0]}★',
+                            style: TextStyle(
+                                fontSize: menu_font_size,
+                                color: Colors.red
+                            ),),
+                          for(int i=1; i<6; i++)
+                            Text('${menu_tue_1[i]}',
+                              style: TextStyle(
+                                fontSize: menu_font_size,
+                              ),),
+                        ],
+                      );
+                  }),
                   Container(
                     width: 100,
                   ),
-                  Column(
-                    children: [
-                      Text('중식',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ),),
-                      Container(
-                        height: 15,
-                      ),
-                      Text('★삼겹살김치찌개★',
-                        style: TextStyle(
-                            fontSize: 15,
-                            color: Colors.red
-                        ),),
-                      Text('쌀밥',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text('생선가스, 타르타르소스',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text('명엽채볶음',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text('깻잎무침',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text('깍두기',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                    ],
-                  ),
+                  TimerBuilder.periodic(Duration(milliseconds: 100), builder: (context){
+                    return Column(
+                      children: [
+                        Text('중식',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          ),),
+                        Container(
+                          height: 15,
+                        ),
+                        Text('★${menu_tue_2[0]}★',
+                          style: TextStyle(
+                              fontSize: menu_font_size,
+                              color: Colors.red
+                          ),),
+                        for(int i=1; i<6; i++)
+                          Text('${menu_tue_2[i]}',
+                            style: TextStyle(
+                              fontSize: menu_font_size,
+                            ),),
+                      ],
+                    );
+                  }),
+
                   Container(
                     width: 100,
                   ),
-                  Column(
-                    children: [
-                      Text('석식',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ),),
-                      Container(
-                        height: 15,
-                      ),
-                      Text('★함박스테이크, 데미소스★',
-                        style: TextStyle(
-                            fontSize: 15,
-                            color: Colors.red
-                        ),),
-                      Text('쌀밥',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text('맑은우동국물',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text('양배추샐러드, 드레싱',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text('모듬피클',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text(' ',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                    ],
-                  ),
+
+                  TimerBuilder.periodic(Duration(milliseconds: 100), builder: (context){
+                    return Column(
+                      children: [
+                        Text('석식',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          ),),
+                        Container(
+                          height: 15,
+                        ),Text('★${menu_tue_3[0]}★',
+                          style: TextStyle(
+                              fontSize: menu_font_size,
+                              color: Colors.red
+                          ),),
+                        for(int i=1; i<6; i++)
+                          Text('${menu_tue_3[i]}',
+                            style: TextStyle(
+                              fontSize: menu_font_size,
+                            ),),
+                      ],
+                    );
+                  }),
+
                   Container(
                     width: 50,
                   ),
@@ -564,10 +915,14 @@ class _school_food_screenState extends State<school_food_screen> {
             ),
 
             //수요일
-            Text('3월 8일',
-              style: TextStyle(
-                fontSize: 20,
-              ),),
+            TimerBuilder.periodic(Duration(milliseconds: 100), builder: (context){
+              return
+                Text('$Month_wed월 $Day_wed일',
+                  style: TextStyle(
+                    fontSize: 20,
+                  ),);
+            }),
+
             Text('수요일',
               style: TextStyle(
                   fontSize: 25,
@@ -583,123 +938,85 @@ class _school_food_screenState extends State<school_food_screen> {
                   Container(
                     width: 50,
                   ),
-                  Column(
-                    children: [
-                      Text('조식',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ),),
-                      Container(
-                        height: 15,
-                      ),
-                      Text('★콩비지찌개★',
-                        style: TextStyle(
-                            fontSize: 15,
-                            color: Colors.red
-                        ),),
-                      Text('쌀밥',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text('메추리알곤약조림',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text('오복채무침',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text('열무김치',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text('음료/누룽지',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                    ],
-                  ),
+                  TimerBuilder.periodic(Duration(milliseconds: 100), builder: (context){
+                    return Column(
+                      children: [
+                        Text('조식',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          ),),
+                        Container(
+                          height: 15,
+                        ),Text('★${menu_wed_1[0]}★',
+                          style: TextStyle(
+                              fontSize: menu_font_size,
+                              color: Colors.red
+                          ),),
+                        for(int i=1; i<6; i++)
+                          Text('${menu_wed_1[i]}',
+                            style: TextStyle(
+                              fontSize: menu_font_size,
+                            ),),
+                      ],
+                    );
+                  }),
+
                   Container(
                     width: 100,
                   ),
-                  Column(
-                    children: [
-                      Text('중식',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ),),
-                      Container(
-                        height: 15,
-                      ),
-                      Text('★삼겹살김치찌개★',
-                        style: TextStyle(
-                            fontSize: 15,
-                            color: Colors.red
-                        ),),
-                      Text('쌀밥',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text('생선가스, 타르타르소스',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text('명엽채볶음',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text('깻잎무침',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text('깍두기',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                    ],
-                  ),
+                  TimerBuilder.periodic(Duration(milliseconds: 100), builder: (context){
+                    return
+                      Column(
+                        children: [
+                          Text('중식',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                            ),),
+                          Container(
+                            height: 15,
+                          ),
+                          Text('★${menu_wed_2[0]}★',
+                            style: TextStyle(
+                                fontSize: menu_font_size,
+                                color: Colors.red
+                            ),),
+                          for(int i=1; i<6; i++)
+                            Text('${menu_wed_2[i]}',
+                              style: TextStyle(
+                                fontSize: menu_font_size,
+                              ),),
+                        ],
+                      );
+                  }),
                   Container(
                     width: 100,
                   ),
-                  Column(
-                    children: [
-                      Text('석식',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ),),
-                      Container(
-                        height: 15,
-                      ),
-                      Text('★함박스테이크, 데미소스★',
-                        style: TextStyle(
-                            fontSize: 15,
-                            color: Colors.red
-                        ),),
-                      Text('쌀밥',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text('맑은우동국물',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text('양배추샐러드, 드레싱',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text('모듬피클',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text(' ',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                    ],
-                  ),
+                  TimerBuilder.periodic(Duration(milliseconds: 100), builder: (context){
+                    return
+                      Column(
+                        children: [
+                          Text('석식',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                            ),),
+                          Container(
+                            height: 15,
+                          ),Text('★${menu_wed_3[0]}★',
+                            style: TextStyle(
+                                fontSize: menu_font_size,
+                                color: Colors.red
+                            ),),
+                          for(int i=1; i<6; i++)
+                            Text('${menu_wed_3[i]}',
+                              style: TextStyle(
+                                fontSize: menu_font_size,
+                              ),),
+                        ],
+                      );
+                  }),
                   Container(
                     width: 50,
                   ),
@@ -713,10 +1030,12 @@ class _school_food_screenState extends State<school_food_screen> {
             ),
 
             //목요일
-            Text('3월 9일',
-              style: TextStyle(
-                fontSize: 20,
-              ),),
+            TimerBuilder.periodic(Duration(milliseconds: 100), builder: (context){
+              return Text('$Month_thu월 $Day_thu일',
+                style: TextStyle(
+                  fontSize: 20,
+                ),);
+            }),
             Text('목요일',
               style: TextStyle(
                   fontSize: 25,
@@ -732,123 +1051,87 @@ class _school_food_screenState extends State<school_food_screen> {
                   Container(
                     width: 50,
                   ),
-                  Column(
-                    children: [
-                      Text('조식',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ),),
-                      Container(
-                        height: 15,
-                      ),
-                      Text('★콩비지찌개★',
-                        style: TextStyle(
-                            fontSize: 15,
-                            color: Colors.red
-                        ),),
-                      Text('쌀밥',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text('메추리알곤약조림',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text('오복채무침',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text('열무김치',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text('음료/누룽지',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                    ],
-                  ),
+                  TimerBuilder.periodic(Duration(milliseconds: 100), builder: (context){
+                    return Column(
+                      children: [
+                        Text('조식',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          ),),
+                        Container(
+                          height: 15,
+                        ),
+                        Text('★${menu_thu_1[0]}★',
+                          style: TextStyle(
+                              fontSize: menu_font_size,
+                              color: Colors.red
+                          ),),
+                        for(int i=1; i<6; i++)
+                          Text('${menu_thu_1[i]}',
+                            style: TextStyle(
+                              fontSize: menu_font_size,
+                            ),),
+                      ],
+                    );
+                  }),
+
                   Container(
                     width: 100,
                   ),
-                  Column(
-                    children: [
-                      Text('중식',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ),),
-                      Container(
-                        height: 15,
-                      ),
-                      Text('★삼겹살김치찌개★',
-                        style: TextStyle(
-                            fontSize: 15,
-                            color: Colors.red
-                        ),),
-                      Text('쌀밥',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text('생선가스, 타르타르소스',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text('명엽채볶음',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text('깻잎무침',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text('깍두기',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                    ],
-                  ),
+                  TimerBuilder.periodic(Duration(milliseconds: 100), builder: (context){
+                    return
+                      Column(
+                        children: [
+                          Text('중식',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                            ),),
+                          Container(
+                            height: 15,
+                          ),
+                          Text('★${menu_thu_2[0]}★',
+                            style: TextStyle(
+                                fontSize: menu_font_size,
+                                color: Colors.red
+                            ),),
+                          for(int i=1; i<6; i++)
+                            Text('${menu_thu_2[i]}',
+                              style: TextStyle(
+                                fontSize: menu_font_size,
+                              ),),
+                        ],
+                      );
+                  }),
                   Container(
                     width: 100,
                   ),
-                  Column(
-                    children: [
-                      Text('석식',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ),),
-                      Container(
-                        height: 15,
-                      ),
-                      Text('★함박스테이크, 데미소스★',
-                        style: TextStyle(
-                            fontSize: 15,
-                            color: Colors.red
-                        ),),
-                      Text('쌀밥',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text('맑은우동국물',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text('양배추샐러드, 드레싱',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text('모듬피클',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text(' ',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                    ],
-                  ),
+                  TimerBuilder.periodic(Duration(milliseconds: 100), builder: (context){
+                    return
+                      Column(
+                        children: [
+                          Text('석식',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                            ),),
+                          Container(
+                            height: 15,
+                          ),
+                          Text('★${menu_thu_3[0]}★',
+                            style: TextStyle(
+                                fontSize: menu_font_size,
+                                color: Colors.red
+                            ),),
+                          for(int i=1; i<6; i++)
+                            Text('${menu_thu_3[i]}',
+                              style: TextStyle(
+                                fontSize: menu_font_size,
+                              ),),
+                        ],
+                      );
+                  }),
                   Container(
                     width: 50,
                   ),
@@ -862,10 +1145,14 @@ class _school_food_screenState extends State<school_food_screen> {
             ),
 
             //금요일
-            Text('3월 10일',
-              style: TextStyle(
-                fontSize: 20,
-              ),),
+            TimerBuilder.periodic(Duration(milliseconds: 100), builder: (context){
+              return
+                Text('$Month_fri월 $Day_fri일',
+                  style: TextStyle(
+                    fontSize: 20,
+                  ),);
+            }),
+
             Text('금요일',
               style: TextStyle(
                   fontSize: 25,
@@ -881,123 +1168,87 @@ class _school_food_screenState extends State<school_food_screen> {
                   Container(
                     width: 50,
                   ),
-                  Column(
-                    children: [
-                      Text('조식',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ),),
-                      Container(
-                        height: 15,
-                      ),
-                      Text('★콩비지찌개★',
-                        style: TextStyle(
-                            fontSize: 15,
-                            color: Colors.red
-                        ),),
-                      Text('쌀밥',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text('메추리알곤약조림',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text('오복채무침',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text('열무김치',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text('음료/누룽지',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                    ],
-                  ),
+                  TimerBuilder.periodic(Duration(milliseconds: 100), builder: (context){
+                    return Column(
+                      children: [
+                        Text('조식',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          ),),
+                        Container(
+                          height: 15,
+                        ),
+                        Text('★${menu_fri_1[0]}★',
+                          style: TextStyle(
+                              fontSize: menu_font_size,
+                              color: Colors.red
+                          ),),
+                        for(int i=1; i<6; i++)
+                          Text('${menu_fri_1[i]}',
+                            style: TextStyle(
+                              fontSize: menu_font_size,
+                            ),),
+                      ],
+                    );
+                  }),
+
                   Container(
                     width: 100,
                   ),
-                  Column(
-                    children: [
-                      Text('중식',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ),),
-                      Container(
-                        height: 15,
-                      ),
-                      Text('★삼겹살김치찌개★',
-                        style: TextStyle(
-                            fontSize: 15,
-                            color: Colors.red
-                        ),),
-                      Text('쌀밥',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text('생선가스, 타르타르소스',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text('명엽채볶음',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text('깻잎무침',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text('깍두기',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                    ],
-                  ),
+                  TimerBuilder.periodic(Duration(milliseconds: 100), builder: (context){
+                    return Column(
+                      children: [
+                        Text('중식',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          ),),
+                        Container(
+                          height: 15,
+                        ),
+                        Text('★${menu_fri_2[0]}★',
+                          style: TextStyle(
+                              fontSize: menu_font_size,
+                              color: Colors.red
+                          ),),
+                        for(int i=1; i<6; i++)
+                          Text('${menu_fri_2[i]}',
+                            style: TextStyle(
+                              fontSize: menu_font_size,
+                            ),),
+                      ],
+                    );
+                  }),
+
                   Container(
                     width: 100,
                   ),
-                  Column(
-                    children: [
-                      Text('석식',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ),),
-                      Container(
-                        height: 15,
-                      ),
-                      Text('★함박스테이크, 데미소스★',
-                        style: TextStyle(
-                            fontSize: 15,
-                            color: Colors.red
-                        ),),
-                      Text('쌀밥',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text('맑은우동국물',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text('양배추샐러드, 드레싱',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text('모듬피클',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text(' ',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                    ],
-                  ),
+                  TimerBuilder.periodic(Duration(milliseconds: 100), builder: (context){
+                    return Column(
+                      children: [
+                        Text('석식',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          ),),
+                        Container(
+                          height: 15,
+                        ),
+                        Text('★${menu_fri_3[0]}★',
+                          style: TextStyle(
+                              fontSize: menu_font_size,
+                              color: Colors.red
+                          ),),
+                        for(int i=1; i<6; i++)
+                          Text('${menu_fri_3[i]}',
+                            style: TextStyle(
+                              fontSize: menu_font_size,
+                            ),),
+                      ],
+                    );
+                  }),
+
                   Container(
                     width: 50,
                   ),
@@ -1011,10 +1262,14 @@ class _school_food_screenState extends State<school_food_screen> {
             ),
 
             //토요일
-            Text('3월 11일',
-              style: TextStyle(
-                fontSize: 20,
-              ),),
+            TimerBuilder.periodic(Duration(milliseconds: 100), builder: (context){
+              return
+                Text('$Month_sat월 $Day_sat일',
+                  style: TextStyle(
+                    fontSize: 20,
+                  ),);
+            }),
+
             Text('토요일',
               style: TextStyle(
                   fontSize: 25,
@@ -1030,123 +1285,88 @@ class _school_food_screenState extends State<school_food_screen> {
                   Container(
                     width: 50,
                   ),
-                  Column(
-                    children: [
-                      Text('조식',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ),),
-                      Container(
-                        height: 15,
-                      ),
-                      Text('★콩비지찌개★',
-                        style: TextStyle(
-                            fontSize: 15,
-                            color: Colors.red
-                        ),),
-                      Text('쌀밥',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text('메추리알곤약조림',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text('오복채무침',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text('열무김치',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text('음료/누룽지',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                    ],
-                  ),
+                  TimerBuilder.periodic(Duration(milliseconds: 100), builder: (context){
+                    return Column(
+                      children: [
+                        Text('조식',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          ),),
+                        Container(
+                          height: 15,
+                        ),
+                        Text('★${menu_sat_1[0]}★',
+                          style: TextStyle(
+                              fontSize: menu_font_size,
+                              color: Colors.red
+                          ),),
+                        for(int i=1; i<6; i++)
+                          Text('${menu_sat_1[i]}',
+                            style: TextStyle(
+                              fontSize: menu_font_size,
+                            ),),
+                      ],
+                    );
+                  }),
+
                   Container(
                     width: 100,
                   ),
-                  Column(
-                    children: [
-                      Text('중식',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ),),
-                      Container(
-                        height: 15,
-                      ),
-                      Text('★삼겹살김치찌개★',
-                        style: TextStyle(
-                            fontSize: 15,
-                            color: Colors.red
-                        ),),
-                      Text('쌀밥',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text('생선가스, 타르타르소스',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text('명엽채볶음',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text('깻잎무침',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text('깍두기',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                    ],
-                  ),
+                  TimerBuilder.periodic(Duration(milliseconds: 100), builder: (context){
+                    return Column(
+                      children: [
+                        Text('중식',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          ),),
+                        Container(
+                          height: 15,
+                        ),
+
+                        Text('★${menu_sat_2[0]}★',
+                          style: TextStyle(
+                              fontSize: menu_font_size,
+                              color: Colors.red
+                          ),),
+                        for(int i=1; i<6; i++)
+                          Text('${menu_sat_2[i]}',
+                            style: TextStyle(
+                              fontSize: menu_font_size,
+                            ),),
+                      ],
+                    );
+                  }),
+
                   Container(
                     width: 100,
                   ),
-                  Column(
-                    children: [
-                      Text('석식',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ),),
-                      Container(
-                        height: 15,
-                      ),
-                      Text('★함박스테이크, 데미소스★',
-                        style: TextStyle(
-                            fontSize: 15,
-                            color: Colors.red
-                        ),),
-                      Text('쌀밥',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text('맑은우동국물',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text('양배추샐러드, 드레싱',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text('모듬피클',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text(' ',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                    ],
-                  ),
+                  TimerBuilder.periodic(Duration(milliseconds: 100), builder: (context){
+                    return Column(
+                      children: [
+                        Text('석식',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          ),),
+                        Container(
+                          height: 15,
+                        ),
+                        Text('★${menu_sat_3[0]}★',
+                          style: TextStyle(
+                              fontSize: menu_font_size,
+                              color: Colors.red
+                          ),),
+                        for(int i=1; i<6; i++)
+                          Text('${menu_sat_3[i]}',
+                            style: TextStyle(
+                              fontSize: menu_font_size,
+                            ),),
+                      ],
+                    );
+                  }),
+
                   Container(
                     width: 50,
                   ),
@@ -1160,10 +1380,14 @@ class _school_food_screenState extends State<school_food_screen> {
             ),
 
             //일요일
-            Text('3월 12일',
-              style: TextStyle(
-                fontSize: 20,
-              ),),
+            TimerBuilder.periodic(Duration(milliseconds: 100), builder: (context){
+              return
+                Text('$Month_sun월 $Day_sun일',
+                  style: TextStyle(
+                    fontSize: 20,
+                  ),);
+            }),
+
             Text('일요일',
               style: TextStyle(
                   fontSize: 25,
@@ -1179,123 +1403,85 @@ class _school_food_screenState extends State<school_food_screen> {
                   Container(
                     width: 50,
                   ),
-                  Column(
-                    children: [
-                      Text('조식',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ),),
-                      Container(
-                        height: 15,
-                      ),
-                      Text('★콩비지찌개★',
-                        style: TextStyle(
-                            fontSize: 15,
-                            color: Colors.red
-                        ),),
-                      Text('쌀밥',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text('메추리알곤약조림',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text('오복채무침',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text('열무김치',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text('음료/누룽지',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                    ],
-                  ),
+                  TimerBuilder.periodic(Duration(milliseconds: 100), builder: (context){
+                    return Column(
+                      children: [
+                        Text('조식',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          ),),
+                        Container(
+                          height: 15,
+                        ),
+                        Text('★${menu_sun_1[0]}★',
+                          style: TextStyle(
+                              fontSize: menu_font_size,
+                              color: Colors.red
+                          ),),
+                        for(int i=1; i<6; i++)
+                          Text('${menu_sun_1[i]}',
+                            style: TextStyle(
+                              fontSize: menu_font_size,
+                            ),),
+                      ],
+                    );
+                  }),
+
                   Container(
                     width: 100,
                   ),
-                  Column(
-                    children: [
-                      Text('중식',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ),),
-                      Container(
-                        height: 15,
-                      ),
-                      Text('★삼겹살김치찌개★',
-                        style: TextStyle(
-                            fontSize: 15,
-                            color: Colors.red
-                        ),),
-                      Text('쌀밥',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text('생선가스, 타르타르소스',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text('명엽채볶음',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text('깻잎무침',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text('깍두기',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                    ],
-                  ),
+                  TimerBuilder.periodic(Duration(milliseconds: 100), builder: (context){
+                    return Column(
+                      children: [
+                        Text('중식',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          ),),
+                        Container(
+                          height: 15,
+                        ),
+                        Text('★${menu_sun_2[0]}★',
+                          style: TextStyle(
+                              fontSize: menu_font_size,
+                              color: Colors.red
+                          ),),
+                        for(int i=1; i<6; i++)
+                          Text('${menu_sun_2[i]}',
+                            style: TextStyle(
+                              fontSize: menu_font_size,
+                            ),),
+                      ],
+                    );
+                  }),
                   Container(
                     width: 100,
                   ),
-                  Column(
-                    children: [
-                      Text('석식',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ),),
-                      Container(
-                        height: 15,
-                      ),
-                      Text('★함박스테이크, 데미소스★',
-                        style: TextStyle(
-                            fontSize: 15,
-                            color: Colors.red
-                        ),),
-                      Text('쌀밥',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text('맑은우동국물',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text('양배추샐러드, 드레싱',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text('모듬피클',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                      Text(' ',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),),
-                    ],
-                  ),
+                  TimerBuilder.periodic(Duration(milliseconds: 100), builder: (context){
+                    return Column(
+                      children: [
+                        Text('석식',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          ),),
+                        Container(
+                          height: 15,
+                        ),
+                        Text('★${menu_sun_3[0]}★',
+                          style: TextStyle(
+                              fontSize: menu_font_size,
+                              color: Colors.red
+                          ),),
+                        for(int i=1; i<6; i++)
+                          Text('${menu_sun_3[i]}',
+                            style: TextStyle(
+                              fontSize: menu_font_size,
+                            ),),
+                      ],
+                    );
+                  }),
                   Container(
                     width: 50,
                   ),

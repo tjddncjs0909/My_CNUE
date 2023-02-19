@@ -5,11 +5,23 @@ import 'package:cnue_food_app/Screen/outfood_screen.dart';
 import 'package:cnue_food_app/Screen/schoolfood_screen.dart';
 import 'package:cnue_food_app/Screen/home_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_naver_map/flutter_naver_map.dart';
+import 'firebase_options.dart';
 
 const apikey = '1fe9c028a43953322ca5e91c8be23ec1';
 
 
-void main() => runApp(MyApp());
+void main()async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await NaverMapSdk.instance.initialize(
+      clientId: 'nhzb9jix8b'
+  );
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -67,7 +79,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.set_meal),
-            label: '외부식',
+            label: '제휴 식당',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),

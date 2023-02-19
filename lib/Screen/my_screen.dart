@@ -17,23 +17,35 @@ class _MyScreenState extends State<MyScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('MY'),
-        backgroundColor: Colors.blueAccent,
+        title: Text('MY CNUE',
+        style: TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold
+        ),),
+        backgroundColor: Colors.white,
           actions: [
             IconButton(
                 onPressed: (){
                 },
-                icon: Icon(Icons.settings)),
-          ]
+                icon: Icon(Icons.settings,
+                  color: Colors.black,)),
+          ],
+        elevation: 0.0,
       ),
       body: SafeArea(
         child: ListView(
           padding: EdgeInsets.all(20),
           children: [
-            Text('춘천교대 학식 알리미',
+            Text('My CNUE',
               style: TextStyle(
                 fontSize: 30,
-                fontWeight: FontWeight.bold
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Text('(학교 생활 도우미)',
+              style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold
               ),
             ),
             SizedBox(
@@ -45,30 +57,27 @@ class _MyScreenState extends State<MyScreen> {
               ),
             ),
             SizedBox(
-              height: 20,
+              height: 10,
             ),
-            Text('오픈소스(소스코드 공개) - Flutter(Dart)',
+            Text('문의',
               style: TextStyle(
-                  fontSize: 20,
+                  fontSize: 17,
+                  fontWeight: FontWeight.bold
+              ),
+            ),
+            Text('(디자인 및 기능 제안, 오류 제보 등)',
+              style: TextStyle(
+                  fontSize: 17,
+                  fontWeight: FontWeight.bold
               ),
             ),
             SizedBox(
               height: 10,
             ),
-            Text('GitHub : https://github.com/tjddncjs0909/tjddncjs0909',
+            Text('E-Mail : tjddncjs0909@naver.com',
               style: TextStyle(
-                  fontSize: 15,
+                fontSize: 15,
               ),
-            ),
-            OutlinedButton(
-              child: Text('링크',
-                style: TextStyle(
-                    fontSize: 20,
-                  color: Colors.black87
-                ),),
-              onPressed: (){
-                launchUrl(url1);
-              },
             ),
             SizedBox(
               height: 20,
@@ -87,9 +96,11 @@ class _MyScreenState extends State<MyScreen> {
                 color: Colors.red
               ),
             ),
-            Text('해당 앱은 춘천교대 학생들의 편의를 위해 비영리 목적으로 만들어진 앱이며, '
-                '오픈 소스를 통한 2차 창작을 허용하지만,'
-                '영리 목적으로 사용하지 않기를 권장합니다.',
+            SizedBox(
+              height: 10,
+            ),
+            Text('해당 앱은 춘천교대 재학생이 학생들의 편의를 위해 비영리 목적으로 만든 앱입니다.'
+                ' 해당 앱을 통한 개인적인 비영리 목적의 활용 및 2차 창작은 얼마든지 허용됩니다.',
               style: TextStyle(
                 fontSize: 15,
               ),

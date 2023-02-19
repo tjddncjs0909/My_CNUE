@@ -41,7 +41,11 @@ dependencies:
   google_fonts: ^3.0.1
   flutter_svg: ^1.1.6
   url_launcher: ^6.1.7
-
+  firebase_core: ^2.4.1
+  cloud_firestore: ^4.3.1
+  firebase_database: ^10.0.9
+  fluttertoast: ^8.1.2
+  flutter_naver_map: ^1.0.0-dev.4
 
 dev_dependencies:
   flutter_test:
