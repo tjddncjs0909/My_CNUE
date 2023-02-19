@@ -1,9 +1,26 @@
-import 'package:container_widget_reminding_20/HomeScreen.dart';
-import 'package:container_widget_reminding_20/School_Menu.dart';
-import 'package:container_widget_reminding_20/MY.dart';
-import 'package:flutter/material.dart';
 
-void main() => runApp(const MyApp());
+import 'package:cnue_food_app/Screen/my_screen.dart';
+import 'package:cnue_food_app/Screen/outfood_screen.dart';
+import 'package:cnue_food_app/Screen/schoolfood_screen.dart';
+import 'package:cnue_food_app/Screen/home_screen.dart';
+import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_naver_map/flutter_naver_map.dart';
+import 'firebase_options.dart';
+
+const apikey = '1fe9c028a43953322ca5e91c8be23ec1';
+
+
+void main()async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await NaverMapSdk.instance.initialize(
+      clientId: 'nhzb9jix8b'
+  );
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -11,6 +28,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: MyStatefulWidget(),
     );
   }
@@ -28,10 +46,12 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
 
   static const TextStyle optionStyle =
   TextStyle(fontSize: 40, fontWeight: FontWeight.bold);
+
   static const List<Widget> _widgetOptions = <Widget>[
-    HomeScreen(),
-    School_Menu(),
-    ScreenC(),
+    WeatherScreen(),
+    school_food_screen(),
+    OutFoodScreen(),
+    MyScreen(),
   ];
 
   void _onItemTapped(int index) {
@@ -47,28 +67,30 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
+        items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: '홈',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.business),
-            label: '학식메뉴',
+            icon: Icon(Icons.food_bank),
+            label: '학식',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.school),
-            label: 'MY',
+            icon: Icon(Icons.set_meal),
+            label: '제휴 식당',
           ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'MY',
+          )
         ],
+        selectedItemColor: Colors.amber[800],
+        selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),
+        unselectedLabelStyle: TextStyle(fontSize: 15),
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
-        // 아랫줄을 쓰지 않아도 탭이 4개 미만인 경우 기본으로 설정된다.
-        // type: BottomNavigationBarType.fixed,
-
-        selectedItemColor: Colors.blue,
-        unselectedItemColor: Colors.black,
-        backgroundColor: Colors.white,
+        type: BottomNavigationBarType.fixed,
       ),
     );
   }
