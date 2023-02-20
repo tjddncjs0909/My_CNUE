@@ -381,7 +381,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                   children: [
                     IconButton(
                         onPressed:(){
-                          launchUrl(url1);
+                          launchUrl(url1,);
                         },
                         icon: Icon(
                             Icons.home,
