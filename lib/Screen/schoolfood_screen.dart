@@ -492,7 +492,8 @@ class _school_food_screenState extends State<school_food_screen> {
                       fontSize: 15
                     ),),
                   onPressed: (){
-                    launchUrl(url1);
+                    launchUrl(url1,
+                        mode: LaunchMode.externalApplication);
                   },
                 )
               ],

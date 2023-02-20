@@ -381,7 +381,8 @@ class _WeatherScreenState extends State<WeatherScreen> {
                   children: [
                     IconButton(
                         onPressed:(){
-                          launchUrl(url1,);
+                          launchUrl(url1,
+                              mode: LaunchMode.externalApplication);
                         },
                         icon: Icon(
                             Icons.home,
@@ -392,7 +393,8 @@ class _WeatherScreenState extends State<WeatherScreen> {
 
                     IconButton(
                         onPressed:(){
-                          launchUrl(url4);
+                          launchUrl(url4,
+                              mode: LaunchMode.externalApplication);
                         },
                         icon: Icon(
                           Icons.home_work,
@@ -407,7 +409,8 @@ class _WeatherScreenState extends State<WeatherScreen> {
                   children: [
                     IconButton(
                         onPressed:(){
-                          launchUrl(url2);
+                          launchUrl(url2,
+                              mode: LaunchMode.externalApplication);
                         },
                         icon: Icon(
                           Icons.calendar_month,
@@ -418,7 +421,8 @@ class _WeatherScreenState extends State<WeatherScreen> {
                     Text("학사 일정"),
                     IconButton(
                         onPressed:(){
-                          launchUrl(url5);
+                          launchUrl(url5,
+                              mode: LaunchMode.externalApplication);
                         },
                         icon: Icon(
                           Icons.work_history,
@@ -435,7 +439,8 @@ class _WeatherScreenState extends State<WeatherScreen> {
                   children: [
                     IconButton(
                         onPressed:(){
-                          launchUrl(url3);
+                          launchUrl(url3,
+                              mode: LaunchMode.externalApplication);
                         },
                         icon: Icon(
                           Icons.speaker_notes,
@@ -446,7 +451,8 @@ class _WeatherScreenState extends State<WeatherScreen> {
                     Text("학생 공지"),
                     IconButton(
                         onPressed:(){
-                          launchUrl(url6);
+                          launchUrl(url6,
+                              mode: LaunchMode.externalApplication);
                         },
                         icon: Icon(
                           Icons.wechat,

@@ -13,6 +13,7 @@ class MyScreen extends StatefulWidget {
 class _MyScreenState extends State<MyScreen> {
 
   final Uri url1 = Uri.parse('https://github.com/tjddncjs0909/tjddncjs0909');
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,11 +52,6 @@ class _MyScreenState extends State<MyScreen> {
             SizedBox(
               height: 20,
             ),
-            Text('Dev : 윤리 22 천우성',
-              style: TextStyle(
-                fontSize: 20,
-              ),
-            ),
             SizedBox(
               height: 10,
             ),
@@ -81,6 +77,33 @@ class _MyScreenState extends State<MyScreen> {
             ),
             SizedBox(
               height: 20,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                OutlinedButton(
+                  onPressed:(){
+                    launchUrl(Uri.parse("https://github.com/tjddncjs0909/tjddncjs0909"),
+                        mode: LaunchMode.externalApplication);
+                  },
+                  child: Text('Github',
+                    style: TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.bold,
+                      color: Colors.blue,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                Text(':   소스코드 공개, 앱 공지사항',
+                  style: TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.bold
+                  ),
+                ),
+              ],
             ),
             Divider(
               thickness: 1,
