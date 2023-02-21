@@ -1,4 +1,4 @@
-package com.example.cnue_food_app
+package com.cnue_food_app
 
 import io.flutter.embedding.android.FlutterActivity
 
