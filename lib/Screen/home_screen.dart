@@ -382,7 +382,8 @@ class _WeatherScreenState extends State<WeatherScreen> {
                     IconButton(
                         onPressed:(){
                           launchUrl(url1,
-                              mode: LaunchMode.externalApplication);
+                              mode: LaunchMode.externalApplication
+                          );
                         },
                         icon: Icon(
                             Icons.home,
@@ -440,7 +441,8 @@ class _WeatherScreenState extends State<WeatherScreen> {
                     IconButton(
                         onPressed:(){
                           launchUrl(url3,
-                              mode: LaunchMode.externalApplication);
+                              mode: LaunchMode.externalApplication
+                          );
                         },
                         icon: Icon(
                           Icons.speaker_notes,

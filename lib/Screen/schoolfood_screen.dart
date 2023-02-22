@@ -485,7 +485,8 @@ class _school_food_screenState extends State<school_food_screen> {
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 35,
-                  ),),
+                  ),
+                ),
                 OutlinedButton(
                   child: Text('메뉴표 원본',
                     style: TextStyle(
@@ -685,6 +686,8 @@ class _school_food_screenState extends State<school_food_screen> {
               thickness: 1.5,
               color: Colors.grey,
             ),
+
+
             // 월요일
             TimerBuilder.periodic(Duration(milliseconds: 100), builder: (context){
               return Text('${Month_mon}월 ${Day_mon}일',

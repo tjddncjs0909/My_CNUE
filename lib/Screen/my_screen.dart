@@ -84,7 +84,7 @@ class _MyScreenState extends State<MyScreen> {
                 OutlinedButton(
                   onPressed:(){
                     launchUrl(Uri.parse("https://github.com/tjddncjs0909/tjddncjs0909"),
-                        mode: LaunchMode.externalApplication);
+                        mode: LaunchMode.inAppWebView);
                   },
                   child: Text('Github',
                     style: TextStyle(

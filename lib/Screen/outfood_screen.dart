@@ -624,7 +624,8 @@ class _information1State extends State<information1> {
                 onTap: (){
                   launchUrl(
                       Uri.parse("${widget.info_web_url}"),
-                      mode: LaunchMode.externalApplication);
+                      mode: LaunchMode.externalApplication
+                  );
                   Navigator.pop(context1);
                 },
                 child: Image.asset(
