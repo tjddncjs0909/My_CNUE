@@ -12,8 +12,6 @@ import 'package:flutter_naver_map/flutter_naver_map.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-const String kakaomap_key = 'd807ac4fd35de9c7e8bb51845fa03c44';
-
 class OutFoodScreen extends StatefulWidget {
   const OutFoodScreen({Key? key}) : super(key: key);
 
