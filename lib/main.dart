@@ -9,7 +9,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_naver_map/flutter_naver_map.dart';
 import 'firebase_options.dart';
 
-const apikey = '1fe9c028a43953322ca5e91c8be23ec1';
+const apikey = '비공개';
 
 
 void main()async{
