@@ -38,7 +38,7 @@
               />
             <meta-data
                 android:name="com.naver.maps.map.CLIENT_ID"
-                android:value="nhzb9jix8b">
+                android:value="비공개">
             </meta-data>
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
