@@ -4,6 +4,7 @@ import 'package:cnue_food_app/Screen/my_screen.dart';
 import 'package:cnue_food_app/Screen/outfood_screen.dart';
 import 'package:cnue_food_app/Screen/schoolfood_screen.dart';
 import 'package:cnue_food_app/Screen/home_screen.dart';
+import 'package:cnue_food_app/Screen/test_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_naver_map/flutter_naver_map.dart';

@@ -6,7 +6,6 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:timer_builder/timer_builder.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:cnue_food_app/Screen/schoolfood_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class WeatherScreen extends StatefulWidget {
@@ -86,6 +85,12 @@ class _WeatherScreenState extends State<WeatherScreen> {
     "tel:0332606530", // 컴퓨터 11
   ];
 
+  final List<String> list1=[
+    "1_조식",
+    "2_중식",
+    "3_석식"
+  ];
+
   @override
   void initState() {
     // TODO: implement initState
@@ -119,30 +124,28 @@ class _WeatherScreenState extends State<WeatherScreen> {
       num = 7;
     }
 
-    db.collection('${num}_${daysFormat.format(now1)}').doc('1_조식').get().then((DocumentSnapshot ds) {
-      Map<String, dynamic> map = ds.data() as Map<String, dynamic>;
-
-      for (int i = 0; i < 6; i++) {
-        menu_1[i] = map['$i'];
+    for(int j=0; j<3; j++){
+      db.collection('${num}_${daysFormat.format(now1)}').doc(list1[j])
+          .get().then((DocumentSnapshot ds) {
+            Map<String, dynamic> map = ds.data() as Map<String, dynamic>;
+            if(j==0){
+              for (int i = 0; i < 6; i++) {
+                menu_1[i] = map['$i'];
+              }
+            }
+            else if(j==1){
+              for (int i = 0; i < 6; i++) {
+                menu_2[i] = map['$i'];
+              }
+            }
+            else{
+              for (int i = 0; i < 6; i++) {
+                menu_3[i] = map['$i'];
+              }
+            }
       }
+      );
     }
-    );
-    db.collection('${num}_${daysFormat.format(now1)}').doc('2_중식').get().then((DocumentSnapshot ds) {
-      Map<String, dynamic> map = ds.data() as Map<String, dynamic>;
-
-      for (int i = 0; i < 6; i++) {
-        menu_2[i] = map['$i'];
-      }
-    }
-    );
-    db.collection('${num}_${daysFormat.format(now1)}').doc('3_석식').get().then((DocumentSnapshot ds) {
-      Map<String, dynamic> map = ds.data() as Map<String, dynamic>;
-
-      for (int i = 0; i < 6; i++) {
-        menu_3[i] = map['$i'];
-      }
-    }
-    );
   }
 
   void showToast(){
@@ -204,7 +207,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                       Container(
                         margin: EdgeInsets.all(0),
                         height: 250,
-                        width: 180,
+                        width: 220,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(50),
                           color: Colors.grey[300],
@@ -239,10 +242,11 @@ class _WeatherScreenState extends State<WeatherScreen> {
                                         color: Colors.red
                                     ),),
                                   for(int i=1; i<6; i++)
-                                    Text('${menu_1[i]}',
+                                    Text(menu_1[i],
                                       style: TextStyle(
                                           fontSize: menu_fontsize_2
-                                      ),),
+                                      ),
+                                    ),
                                 ],
                               );
                             }
@@ -256,7 +260,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                       Container(
                         margin: EdgeInsets.all(0),
                         height: 250,
-                        width: 180,
+                        width: 220,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(50),
                           color: Colors.grey[300],
@@ -291,7 +295,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                                         color: Colors.red
                                     ),),
                                   for(int i=1; i<6; i++)
-                                    Text('${menu_2[i]}',
+                                    Text(menu_2[i],
                                       style: TextStyle(
                                           fontSize: menu_fontsize_2
                                       ),),
@@ -309,7 +313,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                       Container(
                         margin: EdgeInsets.all(0),
                         height: 250,
-                        width: 180,
+                        width: 220,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(50),
                           color: Colors.grey[300],
@@ -344,7 +348,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                                         color: Colors.red
                                     ),),
                                   for(int i=1; i<6; i++)
-                                    Text('${menu_3[i]}',
+                                    Text(menu_3[i],
                                       style: TextStyle(
                                           fontSize: menu_fontsize_2
                                       ),),
