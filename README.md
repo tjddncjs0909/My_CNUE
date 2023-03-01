@@ -21,7 +21,7 @@ Flutter(Dart)를 이용해 만든 앱입니다.
 - 학식 및 제휴식당 평가(후기) 기능 : 채팅 및 좋아요
 - 학식 메뉴 업데이트 및 제휴식당 추가 현황 알림(PUSH 알림)
 - UI 개선
-- DB 연결 방식을 Stream 방식으로 변경(앱 최적화 작업)
+- Firebase DB 연결 방식 변경(앱 최적화 작업) : One-Time Read(현재) => Stream(예정)
 
 ## Getting Started
 
