@@ -27,6 +27,7 @@ On Google Play Store : https://play.google.com/store/apps/details?id=com.cnue_fo
 - 로그인 기능(카카오 계정 로그인 API 활용)
 - 학식 및 제휴식당 평가(후기) 기능 : 채팅 및 좋아요
 - 학식 메뉴 업데이트 및 제휴식당 추가 현황 알림(PUSH 알림)
+- 학교 공지사항을 링크 접속이 아닌 앱 내부에서 리스트로 빠르게 확인 가능하도록 구현 예정
 - UI 개선
 - Firebase DB 연결 방식 변경(앱 최적화 작업) : One-Time Read(현재) => Stream(예정)
 
