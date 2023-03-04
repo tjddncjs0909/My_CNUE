@@ -6,6 +6,8 @@
 Flutter(Dart)를 이용해 만든 앱입니다.
 학우분들의 학교생활에 도움이 될만한 기능들을 넣어 보았습니다.
 
+On Google Play Store : https://play.google.com/store/apps/details?id=com.cnue_food_app
+
 - 학식 메뉴는 메뉴표가 생활관 홈페이지에 업로드 될 경우, 일요일 석식 운영 종료 이후 최대한 빠른 기간 내에 업로드 하도록 하겠습니다.
 - 앱 내부의 오탈자나 오류는 하단 연락처로 문의 주시면 최대한 빠른 시간 내에 피드백을 드리도록 하겠습니다.
 - - E-mail : tjddncjs0909@naver.com
