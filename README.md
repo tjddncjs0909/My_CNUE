@@ -25,7 +25,7 @@ On Google Play Store : https://play.google.com/store/apps/details?id=com.cnue_fo
 
 # 개발 예정 기능(ver 1.0.1 예정)
 - 로그인 기능(카카오 계정 로그인 API 활용)
-- 학식 및 제휴식당 평가(후기) 기능 : 채팅 및 좋아요
+- 제휴식당 리뷰(후기) 기능 : 채팅, 사진 업로드 및 별점 기능 추가
 - 학식 메뉴 업데이트 및 제휴식당 추가 현황 알림(PUSH 알림)
 - UI 개선
 - Firebase DB 연결 방식 변경(앱 최적화 작업) : One-Time Read(현재) => Stream(예정)
