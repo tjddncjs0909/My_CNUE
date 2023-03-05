@@ -8,7 +8,7 @@ Flutter(Dart)를 이용해 만든 앱입니다.
 
 On Google Play Store : https://play.google.com/store/apps/details?id=com.cnue_food_app
 
-- 학식 메뉴는 일요일 석식 운영 종료 이후 최대한 빠른 시간 내에 업로드 하도록 하겠습니다.
+- 학식 메뉴는 일요일 석식 운영 종료 이후 최대한 빠른 시간 내에 업데이트 하도록 하겠습니다.
 - 앱 내부의 오탈자나 오류는 하단 연락처로 문의 주시면 최대한 빠른 시간 내에 피드백을 드리도록 하겠습니다.
 - - E-mail : tjddncjs0909@naver.com
 - - 오픈 채팅방 : https://open.kakao.com/o/sI8WKr7e
