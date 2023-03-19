@@ -1,5 +1,6 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, library_private_types_in_public_api, use_key_in_widget_constructors, prefer_const_constructors_in_immutables, sort_child_properties_last
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, library_private_types_in_public_api, use_key_in_widget_constructors, prefer_const_constructors_in_immutables, sort_child_properties_last, curly_braces_in_flow_control_structures
 
+import 'package:cnue_food_app/Screen/schoolfood_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -7,6 +8,8 @@ import 'package:intl/intl.dart';
 import 'package:timer_builder/timer_builder.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cnue_food_app/Screen/schoolfood_screen_next.dart';
+
 
 class WeatherScreen extends StatefulWidget {
   const WeatherScreen({Key? key}) : super(key: key);
@@ -17,18 +20,19 @@ class WeatherScreen extends StatefulWidget {
 
 class _WeatherScreenState extends State<WeatherScreen> {
   
-  final Uri url1 = Uri.parse("https://www.cnue.ac.kr/cnue/index.do"); // 학교 홈
+  final Uri url1 = Uri.parse("https://www.cnue.ac.kr/cnue/index.do");
   final Uri url2 = Uri.parse("https://www.cnue.ac.kr/cnue/info/schedule.do?mode=list&cYear=2023&allYn=Y");
   final Uri url3 = Uri.parse("https://www.cnue.ac.kr/cnue/news/notice03.do");
   final Uri url4 = Uri.parse("https://www.cnue.ac.kr/life/index.do");
   final Uri url5 = Uri.parse("https://www.cnue.ac.kr/cnue/uni/ethics.do");
-  final Uri url6 = Uri.parse("https://cafe.daum.net/cnuefor15");
-
+  final Uri url6 = Uri.parse("https://linktr.ee/cnue");
+  final Uri url_menu = Uri.parse("https://www.cnue.ac.kr/life/info/food.do");
   // 시간 데이터
   var date = DateTime.now();
-  String getSystemTime() {
+
+  String getSystemTime1() {
     var now = DateTime.now();
-    return DateFormat("a HH:mm ").format(now);
+    return DateFormat("MM월 dd일").format(now);
   }
 
   final db = FirebaseFirestore.instance;
@@ -42,6 +46,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
     "",
     "",
   ];
+  String kcal_1 = "";
   List<String> menu_2 = [
     "",
     "",
@@ -50,6 +55,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
     "",
     "",
   ];
+  String kcal_2 = "";
   List<String> menu_3 = [
     "",
     "",
@@ -58,38 +64,26 @@ class _WeatherScreenState extends State<WeatherScreen> {
     "",
     "",
   ];
+  String kcal_3 = "";
 
   late DateFormat daysFormat;
-
   var now1 = DateTime.now();
 
   int num = 0;
+  bool _isdayoff  = false;
 
-  double menu_fontsize_1 = 20;
-  double menu_fontsize_2 = 15;
+
 
   double tel_font_size = 14;
-
-  static const List<String> telnum = [
-    "tel:0332606400", // 윤리 0
-    "tel:0332606410", // 국어 1
-    "tel:0332606420", // 사회 2
-    "tel:0332606430", // 교육 3
-    "tel:0332606450", // 수학 4
-    "tel:0332606460", // 과학 5
-    "tel:0332606470", // 실과 6
-    "tel:0332606480", // 음악 7
-    "tel:0332606490", // 미술 8
-    "tel:0332606500", // 체육 9
-    "tel:0332606520", // 영어 10
-    "tel:0332606530", // 컴퓨터 11
-  ];
 
   final List<String> list1=[
     "1_조식",
     "2_중식",
     "3_석식"
   ];
+
+  List<String> dropdownList = ['자세히 보기','이번주 메뉴', '지난 메뉴', '다음 주 메뉴'];
+  String selectedDropdown = '자세히 보기';
 
   @override
   void initState() {
@@ -119,30 +113,35 @@ class _WeatherScreenState extends State<WeatherScreen> {
     }
     else if(daysFormat.format(now1) == "토요일"){
       num = 6;
+      _isdayoff = true;
     }
     else if(daysFormat.format(now1) == "일요일"){
       num = 7;
+      _isdayoff = true;
     }
-
     for(int j=0; j<3; j++){
       db.collection('${num}_${daysFormat.format(now1)}').doc(list1[j])
           .get().then((DocumentSnapshot ds) {
-            Map<String, dynamic> map = ds.data() as Map<String, dynamic>;
-            if(j==0){
-              for (int i = 0; i < 6; i++) {
-                menu_1[i] = map['$i'];
-              }
-            }
-            else if(j==1){
-              for (int i = 0; i < 6; i++) {
-                menu_2[i] = map['$i'];
-              }
-            }
-            else{
-              for (int i = 0; i < 6; i++) {
-                menu_3[i] = map['$i'];
-              }
-            }
+        Map<String, dynamic> map = ds.data() as Map<String, dynamic>;
+        if(j==0){
+          for (int i = 0; i < 6; i++) {
+            menu_1[i] = map['$i'];
+          }
+          kcal_1 = map['칼로리'];
+        }
+        else if(j==1){
+          for (int i = 0; i < 6; i++) {
+            menu_2[i] = map['$i'];
+          }
+          kcal_2 = map['칼로리'];
+
+        }
+        else{
+          for (int i = 0; i < 6; i++) {
+            menu_3[i] = map['$i'];
+          }
+          kcal_3 = map['칼로리'];
+        }
       }
       );
     }
@@ -162,6 +161,12 @@ class _WeatherScreenState extends State<WeatherScreen> {
   //UI
   @override
   Widget build(BuildContext context) {
+
+    double menu_fontsize_1 = MediaQuery.of(context).size.height / 35;
+    double menu_fontsize_2 = MediaQuery.of(context).size.height / 50;
+
+
+
     return Scaffold(
       appBar: AppBar(
         title: Text('MY CNUE',
@@ -192,11 +197,52 @@ class _WeatherScreenState extends State<WeatherScreen> {
         child: ListView(
           padding: EdgeInsets.all(20),
           children: [
-            Text('오늘의 학식 메뉴',
-              style: TextStyle(
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold
-              ),),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('오늘의 학식 메뉴',
+                  style: TextStyle(
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                  ),),
+                DropdownButton(
+                  value: selectedDropdown,
+                  items: dropdownList.map((String item) {
+                    return DropdownMenuItem<String>(
+                      child: Text('$item'),
+                      value: item,
+                    );
+                  }).toList(),
+                  onChanged: (String? value) {
+                    setState(() {
+                      selectedDropdown = value!;
+                      if(selectedDropdown == '이번주 메뉴'){
+                        Navigator.push(context, MaterialPageRoute(
+                            builder: (context) => school_food_screen()),
+                        );
+                      }
+                      else if(selectedDropdown == '지난 메뉴'){
+                        launchUrl(url_menu,
+                            mode: LaunchMode.externalApplication);
+                      }
+                      else if(selectedDropdown == '다음 주 메뉴'){
+                        Navigator.push(context, MaterialPageRoute(
+                            builder: (context) => school_food_screen_next()),
+                        );
+                      }
+                    });
+                  },
+                ),
+              ],
+            ),
+            TimerBuilder.periodic(
+                Duration(seconds: 1), builder: (context){
+              return Text('(${getSystemTime1()} : ${daysFormat.format(now1)})',
+                style: TextStyle(
+                    fontSize: 15
+                ),);
+            }
+            ),
             SingleChildScrollView(
               padding: EdgeInsets.all(20),
               scrollDirection: Axis.horizontal,
@@ -206,11 +252,12 @@ class _WeatherScreenState extends State<WeatherScreen> {
                     children: [
                       Container(
                         margin: EdgeInsets.all(0),
-                        height: 250,
-                        width: 220,
+                        padding: EdgeInsets.all(20),
+                        width: 200,
+                        height: 300,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(50),
-                          color: Colors.grey[300],
+                          color: Colors.lightGreen[300],
                           boxShadow: [
                             BoxShadow(
                               color: Colors.grey.withOpacity(0.5),
@@ -221,25 +268,45 @@ class _WeatherScreenState extends State<WeatherScreen> {
                           ],
                         ),
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             TimerBuilder.periodic(Duration(milliseconds: 100), builder: (context){
                               return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text('조식',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: menu_fontsize_1
+                                        ),),
+                                      Text(!_isdayoff ? "07:30~09:00" : "08:00~09:00",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: menu_fontsize_2
+                                        ),),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      Text(kcal_1+" Kcal",
+                                        style: TextStyle(
+                                          decoration: TextDecoration.underline,
+                                        ),
+                                      )
+                                    ],
+                                  ),
                                   SizedBox(
                                     height: 20,
                                   ),
-                                  Text('조식',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: menu_fontsize_1
-                                    ),),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  Text('★${menu_1[0]}★',
+                                  Text(menu_1[0],
                                     style: TextStyle(
                                         fontSize: menu_fontsize_2,
-                                        color: Colors.red
+                                        color: Colors.red,
+                                      fontWeight: FontWeight.bold
                                     ),),
                                   for(int i=1; i<6; i++)
                                     Text(menu_1[i],
@@ -247,6 +314,9 @@ class _WeatherScreenState extends State<WeatherScreen> {
                                           fontSize: menu_fontsize_2
                                       ),
                                     ),
+                                  SizedBox(
+                                    height: 30,
+                                  )
                                 ],
                               );
                             }
@@ -259,11 +329,12 @@ class _WeatherScreenState extends State<WeatherScreen> {
                       ),
                       Container(
                         margin: EdgeInsets.all(0),
-                        height: 250,
-                        width: 220,
+                        padding: EdgeInsets.all(20),
+                        width: 200,
+                        height: 300,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(50),
-                          color: Colors.grey[300],
+                          color: Colors.amber[200],
                           boxShadow: [
                             BoxShadow(
                               color: Colors.grey.withOpacity(0.5),
@@ -274,36 +345,59 @@ class _WeatherScreenState extends State<WeatherScreen> {
                           ],
                         ),
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             TimerBuilder.periodic(Duration(milliseconds: 100), builder: (context){
                               return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text('중식',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: menu_fontsize_1
+                                        ),),
+                                      Text(!_isdayoff ? "11:30~13:30" : "12:00~13:00",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: menu_fontsize_2
+                                        ),),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      Text(kcal_2+" Kcal",
+                                        style: TextStyle(
+                                          decoration: TextDecoration.underline,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                   SizedBox(
                                     height: 20,
                                   ),
-                                  Text('중식',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 20
-                                    ),),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  Text('★${menu_2[0]}★',
+                                  Text(menu_2[0],
                                     style: TextStyle(
                                         fontSize: menu_fontsize_2,
-                                        color: Colors.red
+                                        color: Colors.red,
+                                        fontWeight: FontWeight.bold
                                     ),),
                                   for(int i=1; i<6; i++)
                                     Text(menu_2[i],
                                       style: TextStyle(
                                           fontSize: menu_fontsize_2
-                                      ),),
+                                      ),
+                                    ),
+                                  SizedBox(
+                                    height: 30,
+                                  )
                                 ],
                               );
                             }
                             ),
-
                           ],
                         ),
                       ),
@@ -312,11 +406,12 @@ class _WeatherScreenState extends State<WeatherScreen> {
                       ),
                       Container(
                         margin: EdgeInsets.all(0),
-                        height: 250,
-                        width: 220,
+                        padding: EdgeInsets.all(20),
+                        width: 200,
+                        height: 300,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(50),
-                          color: Colors.grey[300],
+                          color: Colors.blueAccent[100],
                           boxShadow: [
                             BoxShadow(
                               color: Colors.grey.withOpacity(0.5),
@@ -327,36 +422,59 @@ class _WeatherScreenState extends State<WeatherScreen> {
                           ],
                         ),
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             TimerBuilder.periodic(Duration(milliseconds: 100), builder: (context){
                               return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text('석식',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: menu_fontsize_1
+                                        ),),
+                                      Text(!_isdayoff ? "17:00~18:30" : "17:00~18:00",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: menu_fontsize_2
+                                        ),),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      Text(kcal_3+" Kcal",
+                                        style: TextStyle(
+                                          decoration: TextDecoration.underline,
+                                        ),
+                                      )
+                                    ],
+                                  ),
                                   SizedBox(
                                     height: 20,
                                   ),
-                                  Text('석식',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: menu_fontsize_1
-                                    ),),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  Text('★${menu_3[0]}★',
+                                  Text('${menu_3[0]}',
                                     style: TextStyle(
                                         fontSize: menu_fontsize_2,
-                                        color: Colors.red
+                                        color: Colors.red,
+                                        fontWeight: FontWeight.bold
                                     ),),
                                   for(int i=1; i<6; i++)
                                     Text(menu_3[i],
                                       style: TextStyle(
                                           fontSize: menu_fontsize_2
-                                      ),),
+                                      ),
+                                    ),
+                                  SizedBox(
+                                    height: 30,
+                                  )
                                 ],
                               );
                             }
                             ),
-
                           ],
                         ),
                       ),
@@ -365,7 +483,6 @@ class _WeatherScreenState extends State<WeatherScreen> {
                 ],
               ),
             ),
-
             SizedBox(
               height: 10,
             ),
@@ -436,7 +553,6 @@ class _WeatherScreenState extends State<WeatherScreen> {
                         )
                     ),
                     Text("학과 홈페이지"),
-
                   ],
                 ),
 
@@ -466,300 +582,13 @@ class _WeatherScreenState extends State<WeatherScreen> {
                           color: Colors.grey,
                         )
                     ),
-                    Text("석사동 친구들"),
+                    Text("총학생회"),
                   ],
                 ),
               ],
             ),
             SizedBox(
               height: 30,
-            ),
-            Text("학내 연락처",
-              style: TextStyle(
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold
-              ),),
-            SizedBox(
-              height: 10,
-            ),
-            Text("<학과 사무실>",
-              style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold
-              ),),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                      children: [
-                        Text("윤리교육과 :",
-                          style: TextStyle(
-                            fontSize: tel_font_size,
-                          ),),
-                        TextButton(
-                            onPressed:(){
-                              launchUrl(Uri.parse(telnum[0]));
-                            },
-                          child: Text("033-260-6400",
-                            style: TextStyle(
-                                fontSize: tel_font_size
-                            ),),
-                          style: TextButton.styleFrom(
-                            minimumSize: Size.zero,
-                            padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
-                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                          ),),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Text("국어교육과 :",
-                          style: TextStyle(
-                            fontSize: tel_font_size,
-                          ),),
-                        TextButton(
-                          onPressed:(){
-                            launchUrl(Uri.parse(telnum[1]));
-                          },
-                          child: Text("033-260-6410",
-                            style: TextStyle(
-                                fontSize: tel_font_size
-                            ),),
-                          style: TextButton.styleFrom(
-                            minimumSize: Size.zero,
-                            padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
-                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                          ),),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Text("사회과교육과 :",
-                          style: TextStyle(
-                            fontSize: tel_font_size,
-                          ),),
-                        TextButton(
-                          onPressed:(){
-                            launchUrl(Uri.parse(telnum[2]));
-                          },
-                          child: Text("033-260-6420",
-                            style: TextStyle(
-                                fontSize: tel_font_size
-                            ),),
-                          style: TextButton.styleFrom(
-                            minimumSize: Size.zero,
-                            padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
-                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                          ),),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Text("교육학과 :",
-                          style: TextStyle(
-                            fontSize: tel_font_size,
-                          ),),
-                        TextButton(
-                          onPressed:(){
-                            launchUrl(Uri.parse(telnum[3]));
-                          },
-                          child: Text("033-260-6430",
-                            style: TextStyle(
-                                fontSize: tel_font_size
-                            ),),
-                          style: TextButton.styleFrom(
-                            minimumSize: Size.zero,
-                            padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
-                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                          ),),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Text("수학교육과 :",
-                          style: TextStyle(
-                            fontSize: tel_font_size,
-                          ),),
-                        TextButton(
-                          onPressed:(){
-                            launchUrl(Uri.parse(telnum[4]));
-                          },
-                          child: Text("033-260-6450",
-                            style: TextStyle(
-                                fontSize: tel_font_size
-                            ),),
-                          style: TextButton.styleFrom(
-                            minimumSize: Size.zero,
-                            padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
-                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                          ),),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Text("과학교육과 :",
-                          style: TextStyle(
-                            fontSize: tel_font_size,
-                          ),),
-                        TextButton(
-                          onPressed:(){
-                            launchUrl(Uri.parse(telnum[5]));
-                          },
-                          child: Text("033-260-6460",
-                            style: TextStyle(
-                                fontSize: tel_font_size
-                            ),),
-                          style: TextButton.styleFrom(
-                            minimumSize: Size.zero,
-                            padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
-                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                          ),),
-                      ],
-                    ),
-                  ],
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                      children: [
-                        Text("실과교육과 :",
-                          style: TextStyle(
-                            fontSize: tel_font_size,
-                          ),),
-                        TextButton(
-                          onPressed:(){
-                            launchUrl(Uri.parse(telnum[6]));
-                          },
-                          child: Text("033-260-6470",
-                            style: TextStyle(
-                                fontSize: tel_font_size
-                            ),),
-                          style: TextButton.styleFrom(
-                            minimumSize: Size.zero,
-                            padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
-                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                          ),),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Text("음악교육과 :",
-                          style: TextStyle(
-                            fontSize: tel_font_size,
-                          ),),
-                        TextButton(
-                          onPressed:(){
-                            launchUrl(Uri.parse(telnum[7]));
-                          },
-                          child: Text("033-260-6480",
-                            style: TextStyle(
-                                fontSize: tel_font_size
-                            ),),
-                          style: TextButton.styleFrom(
-                            minimumSize: Size.zero,
-                            padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
-                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                          ),),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Text("미술교육과 :",
-                          style: TextStyle(
-                            fontSize: tel_font_size,
-                          ),),
-                        TextButton(
-                          onPressed:(){
-                            launchUrl(Uri.parse(telnum[8]));
-                          },
-                          child: Text("033-260-6490",
-                            style: TextStyle(
-                                fontSize: tel_font_size
-                            ),),
-                          style: TextButton.styleFrom(
-                            minimumSize: Size.zero,
-                            padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
-                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                          ),),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Text("체육교육과 :",
-                          style: TextStyle(
-                            fontSize: tel_font_size,
-                          ),),
-                        TextButton(
-                          onPressed:(){
-                            launchUrl(Uri.parse(telnum[9]));
-                          },
-                          child: Text("033-260-6500",
-                            style: TextStyle(
-                                fontSize: tel_font_size
-                            ),),
-                          style: TextButton.styleFrom(
-                            minimumSize: Size.zero,
-                            padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
-                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                          ),),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Text("영어교육과 :",
-                          style: TextStyle(
-                            fontSize: tel_font_size,
-                          ),),
-                        TextButton(
-                          onPressed:(){
-                            launchUrl(Uri.parse(telnum[10]));
-                          },
-                          child: Text("033-260-6520",
-                            style: TextStyle(
-                                fontSize: tel_font_size
-                            ),),
-                          style: TextButton.styleFrom(
-                            minimumSize: Size.zero,
-                            padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
-                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                          ),),
-                      ],
-                    ),
-
-                    Row(
-                      children: [
-                        Text("컴퓨터교육과 :",
-                          style: TextStyle(
-                            fontSize: tel_font_size,
-                          ),),
-                        TextButton(
-                          onPressed:(){
-                            launchUrl(Uri.parse(telnum[11]));
-                          },
-                          child: Text("033-260-6530",
-                            style: TextStyle(
-                                fontSize: tel_font_size
-                            ),),
-                          style: TextButton.styleFrom(
-                            minimumSize: Size.zero,
-                            padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
-                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                          ),),
-                      ],
-                    ),
-                  ],
-                )
-              ],
             ),
           ],
         ),

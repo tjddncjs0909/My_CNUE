@@ -8,14 +8,14 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-class school_food_screen extends StatefulWidget {
-  const school_food_screen({Key? key}) : super(key: key);
+class school_food_screen_next extends StatefulWidget {
+  const school_food_screen_next({Key? key}) : super(key: key);
 
   @override
-  State<school_food_screen> createState() => _school_food_screenState();
+  State<school_food_screen_next> createState() => _school_food_screen_nextState();
 }
 
-class _school_food_screenState extends State<school_food_screen> {
+class _school_food_screen_nextState extends State<school_food_screen_next> {
 
   double menu_font_size = 18;
 
@@ -220,7 +220,7 @@ class _school_food_screenState extends State<school_food_screen> {
   final db = FirebaseFirestore.instance;
 
   Refreshing() {
-    db.collection('1_월요일').doc('1_조식').get().then((DocumentSnapshot ds) {
+    db.collection('next_1_월요일').doc('1_조식').get().then((DocumentSnapshot ds) {
       Map<String, dynamic> map = ds.data() as Map<String, dynamic>;
 
       for (int i = 0; i < 6; i++) {
@@ -231,7 +231,7 @@ class _school_food_screenState extends State<school_food_screen> {
     }
     );
 
-    db.collection('1_월요일').doc('2_중식').get().then((DocumentSnapshot ds) {
+    db.collection('next_1_월요일').doc('2_중식').get().then((DocumentSnapshot ds) {
       Map<String, dynamic> map = ds.data() as Map<String, dynamic>;
 
       for (int i = 0; i < 6; i++) {
@@ -240,7 +240,7 @@ class _school_food_screenState extends State<school_food_screen> {
     }
     );
 
-    db.collection('1_월요일').doc('3_석식').get().then((DocumentSnapshot ds) {
+    db.collection('next_1_월요일').doc('3_석식').get().then((DocumentSnapshot ds) {
       Map<String, dynamic> map = ds.data() as Map<String, dynamic>;
 
       for (int i = 0; i < 6; i++) {
@@ -249,7 +249,7 @@ class _school_food_screenState extends State<school_food_screen> {
     }
     );
 
-    db.collection('2_화요일').doc('1_조식').get().then((DocumentSnapshot ds) {
+    db.collection('next_2_화요일').doc('1_조식').get().then((DocumentSnapshot ds) {
       Map<String, dynamic> map = ds.data() as Map<String, dynamic>;
 
       for (int i = 0; i < 6; i++) {
@@ -259,7 +259,7 @@ class _school_food_screenState extends State<school_food_screen> {
       Day_tue = map['day'];
     }
     );
-    db.collection('2_화요일').doc('2_중식').get().then((DocumentSnapshot ds) {
+    db.collection('next_2_화요일').doc('2_중식').get().then((DocumentSnapshot ds) {
       Map<String, dynamic> map = ds.data() as Map<String, dynamic>;
 
       for (int i = 0; i < 6; i++) {
@@ -267,7 +267,7 @@ class _school_food_screenState extends State<school_food_screen> {
       }
     }
     );
-    db.collection('2_화요일').doc('3_석식').get().then((DocumentSnapshot ds) {
+    db.collection('next_2_화요일').doc('3_석식').get().then((DocumentSnapshot ds) {
       Map<String, dynamic> map = ds.data() as Map<String, dynamic>;
 
       for (int i = 0; i < 6; i++) {
@@ -275,7 +275,7 @@ class _school_food_screenState extends State<school_food_screen> {
       }
     }
     );
-    db.collection('3_수요일').doc('1_조식').get().then((DocumentSnapshot ds) {
+    db.collection('next_3_수요일').doc('1_조식').get().then((DocumentSnapshot ds) {
       Map<String, dynamic> map = ds.data() as Map<String, dynamic>;
 
       for (int i = 0; i < 6; i++) {
@@ -285,7 +285,7 @@ class _school_food_screenState extends State<school_food_screen> {
       Day_wed = map['day'];
     }
     );
-    db.collection('3_수요일').doc('2_중식').get().then((DocumentSnapshot ds) {
+    db.collection('next_3_수요일').doc('2_중식').get().then((DocumentSnapshot ds) {
       Map<String, dynamic> map = ds.data() as Map<String, dynamic>;
 
       for (int i = 0; i < 6; i++) {
@@ -293,7 +293,7 @@ class _school_food_screenState extends State<school_food_screen> {
       }
     }
     );
-    db.collection('3_수요일').doc('3_석식').get().then((DocumentSnapshot ds) {
+    db.collection('next_3_수요일').doc('3_석식').get().then((DocumentSnapshot ds) {
       Map<String, dynamic> map = ds.data() as Map<String, dynamic>;
 
       for (int i = 0; i < 6; i++) {
@@ -301,7 +301,7 @@ class _school_food_screenState extends State<school_food_screen> {
       }
     }
     );
-    db.collection('4_목요일').doc('1_조식').get().then((DocumentSnapshot ds) {
+    db.collection('next_4_목요일').doc('1_조식').get().then((DocumentSnapshot ds) {
       Map<String, dynamic> map = ds.data() as Map<String, dynamic>;
 
       for (int i = 0; i < 6; i++) {
@@ -312,7 +312,7 @@ class _school_food_screenState extends State<school_food_screen> {
     }
     );
 
-    db.collection('4_목요일').doc('2_중식').get().then((DocumentSnapshot ds) {
+    db.collection('next_4_목요일').doc('2_중식').get().then((DocumentSnapshot ds) {
       Map<String, dynamic> map = ds.data() as Map<String, dynamic>;
 
       for (int i = 0; i < 6; i++) {
@@ -321,7 +321,7 @@ class _school_food_screenState extends State<school_food_screen> {
     }
     );
 
-    db.collection('4_목요일').doc('3_석식').get().then((DocumentSnapshot ds) {
+    db.collection('next_4_목요일').doc('3_석식').get().then((DocumentSnapshot ds) {
       Map<String, dynamic> map = ds.data() as Map<String, dynamic>;
 
       for (int i = 0; i < 6; i++) {
@@ -329,7 +329,7 @@ class _school_food_screenState extends State<school_food_screen> {
       }
     }
     );
-    db.collection('5_금요일').doc('1_조식').get().then((DocumentSnapshot ds) {
+    db.collection('next_5_금요일').doc('1_조식').get().then((DocumentSnapshot ds) {
       Map<String, dynamic> map = ds.data() as Map<String, dynamic>;
 
       for (int i = 0; i < 6; i++) {
@@ -340,7 +340,7 @@ class _school_food_screenState extends State<school_food_screen> {
     }
     );
 
-    db.collection('5_금요일').doc('2_중식').get().then((DocumentSnapshot ds) {
+    db.collection('next_5_금요일').doc('2_중식').get().then((DocumentSnapshot ds) {
       Map<String, dynamic> map = ds.data() as Map<String, dynamic>;
 
       for (int i = 0; i < 6; i++) {
@@ -349,7 +349,7 @@ class _school_food_screenState extends State<school_food_screen> {
     }
     );
 
-    db.collection('5_금요일').doc('3_석식').get().then((DocumentSnapshot ds) {
+    db.collection('next_5_금요일').doc('3_석식').get().then((DocumentSnapshot ds) {
       Map<String, dynamic> map = ds.data() as Map<String, dynamic>;
 
       for (int i = 0; i < 6; i++) {
@@ -357,7 +357,7 @@ class _school_food_screenState extends State<school_food_screen> {
       }
     }
     );
-    db.collection('6_토요일').doc('1_조식').get().then((DocumentSnapshot ds) {
+    db.collection('next_6_토요일').doc('1_조식').get().then((DocumentSnapshot ds) {
       Map<String, dynamic> map = ds.data() as Map<String, dynamic>;
 
       for (int i = 0; i < 6; i++) {
@@ -367,7 +367,7 @@ class _school_food_screenState extends State<school_food_screen> {
       Day_sat = map['day'];
     }
     );
-    db.collection('6_토요일').doc('2_중식').get().then((DocumentSnapshot ds) {
+    db.collection('next_6_토요일').doc('2_중식').get().then((DocumentSnapshot ds) {
       Map<String, dynamic> map = ds.data() as Map<String, dynamic>;
 
       for (int i = 0; i < 6; i++) {
@@ -375,7 +375,7 @@ class _school_food_screenState extends State<school_food_screen> {
       }
     }
     );
-    db.collection('6_토요일').doc('3_석식').get().then((DocumentSnapshot ds) {
+    db.collection('next_6_토요일').doc('3_석식').get().then((DocumentSnapshot ds) {
       Map<String, dynamic> map = ds.data() as Map<String, dynamic>;
 
       for (int i = 0; i < 6; i++) {
@@ -383,7 +383,7 @@ class _school_food_screenState extends State<school_food_screen> {
       }
     }
     );
-    db.collection('7_일요일').doc('1_조식').get().then((DocumentSnapshot ds) {
+    db.collection('next_7_일요일').doc('1_조식').get().then((DocumentSnapshot ds) {
       Map<String, dynamic> map = ds.data() as Map<String, dynamic>;
 
       for (int i = 0; i < 6; i++) {
@@ -394,7 +394,7 @@ class _school_food_screenState extends State<school_food_screen> {
     }
     );
 
-    db.collection('7_일요일').doc('2_중식').get().then((DocumentSnapshot ds) {
+    db.collection('next_7_일요일').doc('2_중식').get().then((DocumentSnapshot ds) {
       Map<String, dynamic> map = ds.data() as Map<String, dynamic>;
 
       for (int i = 0; i < 6; i++) {
@@ -403,7 +403,7 @@ class _school_food_screenState extends State<school_food_screen> {
     }
     );
 
-    db.collection('7_일요일').doc('3_석식').get().then((DocumentSnapshot ds) {
+    db.collection('next_7_일요일').doc('3_석식').get().then((DocumentSnapshot ds) {
       Map<String, dynamic> map = ds.data() as Map<String, dynamic>;
 
       for (int i = 0; i < 6; i++) {
@@ -484,12 +484,12 @@ class _school_food_screenState extends State<school_food_screen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('금주의 학식',
+                Text('다음주 학식',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 35,
                   ),
-                )
+                ),
               ],
             ),
             TimerBuilder.periodic(Duration(milliseconds: 100), builder: (context){
@@ -504,7 +504,7 @@ class _school_food_screenState extends State<school_food_screen> {
             SizedBox(
               height: 5,
             ),
-            Text('* 일요일 20시 ~ 24시에 업데이트 됩니다. *',
+            Text('* Meal Care 앱에 메뉴가 올라오면 업데이트 됩니다. *',
               style: TextStyle(
                 fontSize: 15
               ),),

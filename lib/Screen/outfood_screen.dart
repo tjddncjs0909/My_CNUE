@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_naver_map/flutter_naver_map.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -45,6 +46,14 @@ class _OutFoodScreenState extends State<OutFoodScreen> {
         text: text
     );
   }
+  marker_Size(double width, double height){
+    return Size(width, height);
+  }
+  double marker_size_width = 20;
+  double marker_size_height = 30;
+
+
+
   info_alliance(String alliance1, String alliance2, String alliance3, String alliance4) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -81,6 +90,7 @@ class _OutFoodScreenState extends State<OutFoodScreen> {
     final mapSize = Size(mediaQuery.size.width, mediaQuery.size.height);
     final physicalSize = Size(mapSize.width * pixelRatio, mapSize.height * pixelRatio);
 
+
     return Scaffold(
       appBar: AppBar(
         title: Text('MY CNUE',
@@ -110,6 +120,7 @@ class _OutFoodScreenState extends State<OutFoodScreen> {
           locationButtonEnable: true,
           consumeSymbolTapEvents: true,
           zoomGesturesEnable: true,
+          rotationGesturesEnable: true,
 
           // 카메라 초기 위치
           initialCameraPosition: NCameraPosition(
@@ -119,14 +130,16 @@ class _OutFoodScreenState extends State<OutFoodScreen> {
           ),
         ),
 
-
-
         // 맵 초기설정
         onMapReady: (controller) async {
           _mapController = controller;
           mapControllercompleter.complete(controller);
 
           int num = 0;
+
+          String update_year = "";
+          String update_month = "";
+          String update_day = "";
 
           List<dynamic> marker_list =[];
           List<dynamic> infoWindow_list =[];
@@ -143,12 +156,22 @@ class _OutFoodScreenState extends State<OutFoodScreen> {
           }
           );
 
+          await db.collection('제휴식당').doc('update_day')
+              .get().then((DocumentSnapshot ds) {
+            Map<String, dynamic> map = ds.data() as Map<String, dynamic>;
+            update_year = map['year'];
+            update_month = map['month'];
+            update_day = map['day'];
+          }
+          );
+
+
           for(int i=0; i<num; i++){
             if(i+1 < 10){
               await db.collection('제휴식당').doc('res_00${i+1}')
                   .get().then((DocumentSnapshot ds) {
                 Map<String, dynamic> map = ds.data() as Map<String, dynamic>;
-                marker_list.insert(i, marker(map['id'], NLatLng(map['lat'], map['lng']), Size(20, 30)));
+                marker_list.insert(i, marker(map['id'], NLatLng(map['lat'], map['lng']), marker_Size(marker_size_width,marker_size_height )));
                 infoWindow_list.insert(i, infoWindow(map['id'], map['상호명']));
                 info_web_url_list.insert(i, map['link']);
                 info_name_list.insert(i, map['상호명']);
@@ -161,7 +184,7 @@ class _OutFoodScreenState extends State<OutFoodScreen> {
               await db.collection('제휴식당').doc('res_0${i+1}')
                   .get().then((DocumentSnapshot ds) {
                 Map<String, dynamic> map = ds.data() as Map<String, dynamic>;
-                marker_list.insert(i, marker(map['id'], NLatLng(map['lat'], map['lng']), Size(20, 30)));
+                marker_list.insert(i, marker(map['id'], NLatLng(map['lat'], map['lng']), marker_Size(marker_size_width,marker_size_height )));
                 infoWindow_list.insert(i, infoWindow(map['id'], map['상호명']));
                 info_web_url_list.insert(i, map['link']);info_name_list.insert(i, map['상호명']);
                 info_alliance_list.insert(i, info_alliance(
@@ -173,7 +196,7 @@ class _OutFoodScreenState extends State<OutFoodScreen> {
               await db.collection('제휴식당').doc('res_${i+1}')
                   .get().then((DocumentSnapshot ds) {
                 Map<String, dynamic> map = ds.data() as Map<String, dynamic>;
-                marker_list.insert(i, marker(map['id'], NLatLng(map['lat'], map['lng']), Size(20, 30)));
+                marker_list.insert(i, marker(map['id'], NLatLng(map['lat'], map['lng']), marker_Size(marker_size_width,marker_size_height )));
                 infoWindow_list.insert(i, infoWindow(map['id'], map['상호명']));
                 info_web_url_list.insert(i, map['link']);
                 info_name_list.insert(i, map['상호명']);
@@ -188,6 +211,9 @@ class _OutFoodScreenState extends State<OutFoodScreen> {
                   info_web_url: info_web_url_list[i],
                   info_name: info_name_list[i],
                   info_alliance: info_alliance_list[i],
+                  update_year: update_year,
+                  update_month: update_month,
+                  update_day: update_day,
                 )
                 )
             ),
@@ -197,6 +223,7 @@ class _OutFoodScreenState extends State<OutFoodScreen> {
         },
         onMapTapped: (point, latLng) async {
           print(latLng);
+
         },
       );
 
@@ -212,13 +239,21 @@ class _OutFoodScreenState extends State<OutFoodScreen> {
 }
 
 class information1 extends StatefulWidget {
-  const information1({Key? key, required this.info_web_url,
-    required this.info_name,required this.info_alliance})
+  const information1({Key? key,
+    required this.info_web_url,
+    required this.info_name,
+    required this.info_alliance,
+    required this.update_year,
+    required this.update_month,
+    required this.update_day})
       : super(key: key);
 
   final String info_web_url;
   final String info_name;
   final dynamic info_alliance;
+  final String update_year;
+  final String update_month;
+  final String update_day;
 
   @override
   State<information1> createState() => _information1State();
@@ -335,12 +370,14 @@ class _information1State extends State<information1> {
               ],
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("※주의사항※",
+                Text("※공지사항※",
                   style: TextStyle(
                     fontSize: 25,
                     fontWeight: FontWeight.bold,
                   ),),
+                Text("최근 업데이트 : ${widget.update_year}/${widget.update_month}/${widget.update_day}")
               ],
             ),
             Container(
@@ -350,7 +387,7 @@ class _information1State extends State<information1> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text("#1 제휴를 이용하고자 하는 학우분들께서는 업체에",),
-                    Text("“춘천교대 학생”임을 반드시 먼저 언급해주시기 바랍니다 ☺ ",
+                    Text("“춘천교대 학생”임을 반드시 먼저 언급해주시기 바랍니다",
                       style: TextStyle(
                           color: Colors.red
                       ),
@@ -360,7 +397,7 @@ class _information1State extends State<information1> {
                     SizedBox(
                       height: 10,
                     ),
-                    Text("#2 제휴 내용 및 업체 현황에 혹시 오류가 있을 수 있을 경우,"),
+                    Text("#2 제휴 내용 및 업체 현황에 혹시 오류가 있을 경우,"),
                     Row(
                       children: [
                         TextButton(
@@ -380,6 +417,10 @@ class _information1State extends State<information1> {
                       ],
                     ),
                     Text("참고해주시기 바랍니다."),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Text("#3 제휴 업체는 학식과 달리 상시 업데이트 합니다."),
                   ],
                 )
             ),

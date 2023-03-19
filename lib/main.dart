@@ -1,16 +1,18 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:cnue_food_app/Screen/major_screen.dart';
 import 'package:cnue_food_app/Screen/my_screen.dart';
 import 'package:cnue_food_app/Screen/outfood_screen.dart';
 import 'package:cnue_food_app/Screen/schoolfood_screen.dart';
 import 'package:cnue_food_app/Screen/home_screen.dart';
-import 'package:cnue_food_app/Screen/test_screen.dart';
+import 'package:cnue_food_app/chat_app/login.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_naver_map/flutter_naver_map.dart';
 import 'firebase_options.dart';
-
-const apikey = '1fe9c028a43953322ca5e91c8be23ec1';
+import 'package:cnue_food_app/chat_app/main_screen.dart';
+import 'package:cnue_food_app/chat_app/login.dart';
+const apikey = '비공개';
 
 
 void main()async{
@@ -51,9 +53,9 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
 
   static const List<Widget> _widgetOptions = <Widget>[
     WeatherScreen(),
-    school_food_screen(),
+    MajorScreen(),
     OutFoodScreen(),
-    MyScreen(),
+    MyScreen()
   ];
 
   void _onItemTapped(int index) {
@@ -75,8 +77,8 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
             label: '홈',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.food_bank),
-            label: '학식',
+            icon: Icon(Icons.call),
+            label: '학내 연락처',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.set_meal),
