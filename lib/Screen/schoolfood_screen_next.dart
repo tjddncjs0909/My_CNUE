@@ -508,6 +508,10 @@ class _school_food_screen_nextState extends State<school_food_screen_next> {
               style: TextStyle(
                 fontSize: 15
               ),),
+            Text('* 보통 전주 화요일 ~ 수요일에 업데이트 됩니다. *',
+              style: TextStyle(
+                  fontSize: 15
+              ),),
             Divider(
               height: 20.0,
               thickness: 1.5,

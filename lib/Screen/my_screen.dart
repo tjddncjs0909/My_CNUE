@@ -28,6 +28,9 @@ class _MyScreenState extends State<MyScreen> {
   static String content1 = "";
   static String content2 = "";
   static String content3 = "";
+  static String content4 = "";
+  static String content5 = "";
+  static String content6 = "";
 
   Refreshing()async{
     await db.collection('공지사항').doc('날짜')
@@ -46,6 +49,9 @@ class _MyScreenState extends State<MyScreen> {
       content1 = map['내용1'];
       content2 = map['내용2'];
       content3 = map['내용3'];
+      content4 = map['내용4'];
+      content5 = map['내용5'];
+      content6 = map['내용6'];
     }
     );
   }
@@ -183,6 +189,27 @@ class _MyScreenState extends State<MyScreen> {
                       height: 10,
                     ),
                     Text("$content3",
+                      style: TextStyle(
+                          fontSize: 18
+                      ),),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text("$content4",
+                      style: TextStyle(
+                          fontSize: 18
+                      ),),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text("$content5",
+                      style: TextStyle(
+                          fontSize: 18
+                      ),),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text("$content6",
                       style: TextStyle(
                           fontSize: 18
                       ),),

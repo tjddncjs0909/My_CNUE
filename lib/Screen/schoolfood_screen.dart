@@ -17,7 +17,10 @@ class school_food_screen extends StatefulWidget {
 
 class _school_food_screenState extends State<school_food_screen> {
 
-  double menu_font_size = 18;
+  double menu_font_size = 15;
+
+  double menu_fontsize_1 = 20;
+  double menu_fontsize_2 = 15;
 
   // 월요일
   String Month_mon = "";
@@ -46,6 +49,7 @@ class _school_food_screenState extends State<school_food_screen> {
     "",
     "",
   ];
+  List<String> kcal_mon = ["", "", "",];
 
   // 화요일
   String Month_tue = "";
@@ -74,7 +78,7 @@ class _school_food_screenState extends State<school_food_screen> {
     "",
     "",
   ];
-
+  List<String> kcal_tue = ["", "", "",];
 
   //수요일
   String Month_wed= "";
@@ -103,6 +107,7 @@ class _school_food_screenState extends State<school_food_screen> {
     "",
     "",
   ];
+  List<String> kcal_wed = ["", "", "",];
 
   //목요일
   String Month_thu= "";
@@ -131,6 +136,7 @@ class _school_food_screenState extends State<school_food_screen> {
     "",
     "",
   ];
+  List<String> kcal_thu = ["", "", "",];
 
   //금요일
   String Month_fri= "";
@@ -159,7 +165,7 @@ class _school_food_screenState extends State<school_food_screen> {
     "",
     "",
   ];
-
+  List<String> kcal_fri = ["", "", "",];
 
   //토요일
   String Month_sat= "";
@@ -188,6 +194,8 @@ class _school_food_screenState extends State<school_food_screen> {
     "",
     "",
   ];
+  List<String> kcal_sat = ["", "", "",];
+
 
   //일요일
   String Month_sun= "";
@@ -216,208 +224,37 @@ class _school_food_screenState extends State<school_food_screen> {
     "",
     "",
   ];
+  List<String> kcal_sun = ["", "", "",];
+
+
+  String selected_week = "월요일";
+  String selected_Month = "";
+  String seleted_day = "";
+  List<String> selected_menu_1 = [
+    "","","","","","",
+  ];
+  List<String> selected_menu_2 = [
+    "","","","","","",
+  ];
+  List<String> selected_menu_3 = [
+    "","","","","","",
+  ];
+  List<String> selected_kcal= ["", "", "",];
+
 
   final db = FirebaseFirestore.instance;
 
   Refreshing() {
-    db.collection('1_월요일').doc('1_조식').get().then((DocumentSnapshot ds) {
-      Map<String, dynamic> map = ds.data() as Map<String, dynamic>;
 
-      for (int i = 0; i < 6; i++) {
-        menu_mon_1[i] = map['$i'];
-      }
-      Month_mon = map['mon'];
-      Day_mon = map['day'];
-    }
-    );
-
-    db.collection('1_월요일').doc('2_중식').get().then((DocumentSnapshot ds) {
-      Map<String, dynamic> map = ds.data() as Map<String, dynamic>;
-
-      for (int i = 0; i < 6; i++) {
-        menu_mon_2[i] = map['$i'];
-      }
-    }
-    );
-
-    db.collection('1_월요일').doc('3_석식').get().then((DocumentSnapshot ds) {
-      Map<String, dynamic> map = ds.data() as Map<String, dynamic>;
-
-      for (int i = 0; i < 6; i++) {
-        menu_mon_3[i] = map['$i'];
-      }
-    }
-    );
-
-    db.collection('2_화요일').doc('1_조식').get().then((DocumentSnapshot ds) {
-      Map<String, dynamic> map = ds.data() as Map<String, dynamic>;
-
-      for (int i = 0; i < 6; i++) {
-        menu_tue_1[i] = map['$i'];
-      }
-      Month_tue = map['mon'];
-      Day_tue = map['day'];
-    }
-    );
-    db.collection('2_화요일').doc('2_중식').get().then((DocumentSnapshot ds) {
-      Map<String, dynamic> map = ds.data() as Map<String, dynamic>;
-
-      for (int i = 0; i < 6; i++) {
-        menu_tue_2[i] = map['$i'];
-      }
-    }
-    );
-    db.collection('2_화요일').doc('3_석식').get().then((DocumentSnapshot ds) {
-      Map<String, dynamic> map = ds.data() as Map<String, dynamic>;
-
-      for (int i = 0; i < 6; i++) {
-        menu_tue_3[i] = map['$i'];
-      }
-    }
-    );
-    db.collection('3_수요일').doc('1_조식').get().then((DocumentSnapshot ds) {
-      Map<String, dynamic> map = ds.data() as Map<String, dynamic>;
-
-      for (int i = 0; i < 6; i++) {
-        menu_wed_1[i] = map['$i'];
-      }
-      Month_wed = map['mon'];
-      Day_wed = map['day'];
-    }
-    );
-    db.collection('3_수요일').doc('2_중식').get().then((DocumentSnapshot ds) {
-      Map<String, dynamic> map = ds.data() as Map<String, dynamic>;
-
-      for (int i = 0; i < 6; i++) {
-        menu_wed_2[i] = map['$i'];
-      }
-    }
-    );
-    db.collection('3_수요일').doc('3_석식').get().then((DocumentSnapshot ds) {
-      Map<String, dynamic> map = ds.data() as Map<String, dynamic>;
-
-      for (int i = 0; i < 6; i++) {
-        menu_wed_3[i] = map['$i'];
-      }
-    }
-    );
-    db.collection('4_목요일').doc('1_조식').get().then((DocumentSnapshot ds) {
-      Map<String, dynamic> map = ds.data() as Map<String, dynamic>;
-
-      for (int i = 0; i < 6; i++) {
-        menu_thu_1[i] = map['$i'];
-      }
-      Month_thu = map['mon'];
-      Day_thu = map['day'];
-    }
-    );
-
-    db.collection('4_목요일').doc('2_중식').get().then((DocumentSnapshot ds) {
-      Map<String, dynamic> map = ds.data() as Map<String, dynamic>;
-
-      for (int i = 0; i < 6; i++) {
-        menu_thu_2[i] = map['$i'];
-      }
-    }
-    );
-
-    db.collection('4_목요일').doc('3_석식').get().then((DocumentSnapshot ds) {
-      Map<String, dynamic> map = ds.data() as Map<String, dynamic>;
-
-      for (int i = 0; i < 6; i++) {
-        menu_thu_3[i] = map['$i'];
-      }
-    }
-    );
-    db.collection('5_금요일').doc('1_조식').get().then((DocumentSnapshot ds) {
-      Map<String, dynamic> map = ds.data() as Map<String, dynamic>;
-
-      for (int i = 0; i < 6; i++) {
-        menu_fri_1[i] = map['$i'];
-      }
-      Month_fri = map['mon'];
-      Day_fri = map['day'];
-    }
-    );
-
-    db.collection('5_금요일').doc('2_중식').get().then((DocumentSnapshot ds) {
-      Map<String, dynamic> map = ds.data() as Map<String, dynamic>;
-
-      for (int i = 0; i < 6; i++) {
-        menu_fri_2[i] = map['$i'];
-      }
-    }
-    );
-
-    db.collection('5_금요일').doc('3_석식').get().then((DocumentSnapshot ds) {
-      Map<String, dynamic> map = ds.data() as Map<String, dynamic>;
-
-      for (int i = 0; i < 6; i++) {
-        menu_fri_3[i] = map['$i'];
-      }
-    }
-    );
-    db.collection('6_토요일').doc('1_조식').get().then((DocumentSnapshot ds) {
-      Map<String, dynamic> map = ds.data() as Map<String, dynamic>;
-
-      for (int i = 0; i < 6; i++) {
-        menu_sat_1[i] = map['$i'];
-      }
-      Month_sat = map['mon'];
-      Day_sat = map['day'];
-    }
-    );
-    db.collection('6_토요일').doc('2_중식').get().then((DocumentSnapshot ds) {
-      Map<String, dynamic> map = ds.data() as Map<String, dynamic>;
-
-      for (int i = 0; i < 6; i++) {
-        menu_sat_2[i] = map['$i'];
-      }
-    }
-    );
-    db.collection('6_토요일').doc('3_석식').get().then((DocumentSnapshot ds) {
-      Map<String, dynamic> map = ds.data() as Map<String, dynamic>;
-
-      for (int i = 0; i < 6; i++) {
-        menu_sat_3[i] = map['$i'];
-      }
-    }
-    );
-    db.collection('7_일요일').doc('1_조식').get().then((DocumentSnapshot ds) {
-      Map<String, dynamic> map = ds.data() as Map<String, dynamic>;
-
-      for (int i = 0; i < 6; i++) {
-        menu_sun_1[i] = map['$i'];
-      }
-      Month_sun = map['mon'];
-      Day_sun = map['day'];
-    }
-    );
-
-    db.collection('7_일요일').doc('2_중식').get().then((DocumentSnapshot ds) {
-      Map<String, dynamic> map = ds.data() as Map<String, dynamic>;
-
-      for (int i = 0; i < 6; i++) {
-        menu_sun_2[i] = map['$i'];
-      }
-    }
-    );
-
-    db.collection('7_일요일').doc('3_석식').get().then((DocumentSnapshot ds) {
-      Map<String, dynamic> map = ds.data() as Map<String, dynamic>;
-
-      for (int i = 0; i < 6; i++) {
-        menu_sun_3[i] = map['$i'];
-      }
-    }
-    );
 
   }
 
   late DateFormat daysFormat;
 
   var now1 = DateTime.now();
+  bool _isdayoff  = false;
 
+  
   String getSystemTime() {
     var now = DateTime.now();
     return DateFormat("HH:mm:ss ").format(now);
@@ -445,6 +282,7 @@ class _school_food_screenState extends State<school_food_screen> {
     // calling menu information
     Refreshing();
   }
+
   final Uri url1 = Uri.parse('https://www.cnue.ac.kr/life/info/food.do');
 
   @override
@@ -544,942 +382,246 @@ class _school_food_screenState extends State<school_food_screen> {
             Container(
               height: 20,
             ),
-            Stack(
-              children: [
-                Container(
-                  margin: EdgeInsets.all(0),
-                  height: 200,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50),
-                    color: Colors.lightGreen,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.3),
-                        spreadRadius: 5,
-                        blurRadius: 7,
-                        offset: Offset(0, 3), // changes position of shadow
-                      ),
-                    ],
-                  ),
-                ),
-                Column(
+            SizedBox(
+              height: 10,
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            TimerBuilder.periodic(Duration(milliseconds: 100), builder: (context){
+              return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Container(
-                      height: 15,
+                    Text('$selected_Month월 $seleted_day일',
+                      style: TextStyle(
+                        fontSize: 20,
+                      ),),
+                    Text(selected_week,
+                      style: TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold
+                      ),),
+                  ]
+              );
+            }),
+            SizedBox(
+              height: 10,
+            ),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  Container(
+                    margin: EdgeInsets.all(0),
+                    padding: EdgeInsets.all(20),
+                    width: 200,
+                    height: 300,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(50),
+                      color: Colors.lightGreen[300],
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.5),
+                          spreadRadius: 5,
+                          blurRadius: 7,
+                          offset: Offset(0, 3), // changes position of shadow
+                        ),
+                      ],
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Column(
-                          children: [
-                            Text('',
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w900
-                              ),),
-                            Container(
-                              height: 15,
-                            ),
-                            Text('조식',
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w900
+                        TimerBuilder.periodic(Duration(milliseconds: 100), builder: (context){
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text('조식',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: menu_fontsize_1
+                                    ),),
+                                  Text("07:30~09:00",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: menu_fontsize_2
+                                    ),),
+                                ],
                               ),
-                            ),
-                            Container(
-                              height: 15,
-                            ),
-                            Text('중식',
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w900
-                              ),),
-                            Container(
-                              height: 15,
-                            ),
-                            Text('석식',
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w900
-                              ),),
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            Text('평일',
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w900
-                              ),),
-                            Container(
-                              height: 15,
-                            ),
-                            Text('07:30~09:00',
-                              style: TextStyle(
-                                  fontSize: 20,
-                              ),),
-                            Container(
-                              height: 15,
-                            ),
-                            Text('11:30~13:30',
-                              style: TextStyle(
-                                  fontSize: 20,
-                              ),),
-                            Container(
-                              height: 15,
-                            ),
-                            Text('17:00~18:30',
-                              style: TextStyle(
-                                  fontSize: 20,
-                              ),),
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            Text('주말 및 공휴일',
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w900
-                              ),),
-                            Container(
-                              height: 15,
-                            ),
-                            Text('08:00~09:00',
-                              style: TextStyle(
-                                fontSize: 20,
-                              ),),
-                            Container(
-                              height: 15,
-                            ),
-                            Text('12:00~13:00',
-                              style: TextStyle(
-                                fontSize: 20,
-                              ),),
-                            Container(
-                              height: 15,
-                            ),
-                            Text('17:00~18:00',
-                              style: TextStyle(
-                                fontSize: 20,
-                              ),),
-                          ],
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Text(" Kcal",
+                                    style: TextStyle(
+                                      decoration: TextDecoration.underline,
+                                    ),
+                                  )
+                                ],
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Text(selected_menu_1[0],
+                                style: TextStyle(
+                                    fontSize: menu_fontsize_2,
+                                    color: Colors.red,
+                                    fontWeight: FontWeight.bold
+                                ),),
+                              for(int i=1; i<6; i++)
+                                Text(selected_menu_1[i],
+                                  style: TextStyle(
+                                      fontSize: menu_fontsize_2
+                                  ),
+                                ),
+                              SizedBox(
+                                height: 30,
+                              )
+                            ],
+                          );
+                        }
                         ),
                       ],
                     ),
-                  ],
-                )
-              ],
-            ),
-            Container(
-              height: 20,
-            ),
-
-            Divider(
-              height: 20.0,
-              thickness: 1.5,
-              color: Colors.grey,
-            ),
-
-
-            // 월요일
-            TimerBuilder.periodic(Duration(milliseconds: 100), builder: (context){
-              return Text('${Month_mon}월 ${Day_mon}일',
-                style: TextStyle(
-                  fontSize: 20,
-                ),);
-            }),
-            Text('월요일',
-            style: TextStyle(
-              fontSize: 25,
-              fontWeight: FontWeight.bold
-            ),),
-            Container(
-              height: 20,
-            ),
-
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  Container(
-                    width: 50,
                   ),
-                  TimerBuilder.periodic(Duration(milliseconds: 100), builder: (context){
-                    return Column(
-                      children: [
-                        Text('조식',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                          ),),
-                        Container(
-                          height: 15,
+                  Container(
+                    margin: EdgeInsets.all(0),
+                    padding: EdgeInsets.all(20),
+                    width: 200,
+                    height: 300,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(50),
+                      color: Colors.lightGreen[300],
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.5),
+                          spreadRadius: 5,
+                          blurRadius: 7,
+                          offset: Offset(0, 3), // changes position of shadow
                         ),
-                        Text('★${menu_mon_1[0]}★',
-                          style: TextStyle(
-                              fontSize: 18,
-                              color: Colors.red
-                          ),),
-                        for(int i=1; i<6; i++)
-                          Text('${menu_mon_1[i]}',
-                            style: TextStyle(
-                              fontSize: 18,
-                            ),),
                       ],
-                    );
-                  }),
-                  Container(
-                    width: 100,
-                  ),
-                  TimerBuilder.periodic(Duration(milliseconds: 100), builder: (context){
-                    return Column(
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('중식',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                          ),),
-                        Container(
-                          height: 15,
+                        TimerBuilder.periodic(Duration(milliseconds: 100), builder: (context){
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text('조식',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: menu_fontsize_1
+                                    ),),
+                                  Text("07:30~09:00",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: menu_fontsize_2
+                                    ),),
+                                ],
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Text(" Kcal",
+                                    style: TextStyle(
+                                      decoration: TextDecoration.underline,
+                                    ),
+                                  )
+                                ],
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Text(selected_menu_2[0],
+                                style: TextStyle(
+                                    fontSize: menu_fontsize_2,
+                                    color: Colors.red,
+                                    fontWeight: FontWeight.bold
+                                ),),
+                              for(int i=1; i<6; i++)
+                                Text(selected_menu_2[i],
+                                  style: TextStyle(
+                                      fontSize: menu_fontsize_2
+                                  ),
+                                ),
+                              SizedBox(
+                                height: 30,
+                              )
+                            ],
+                          );
+                        }
                         ),
-                        Text('★${menu_mon_2[0]}★',
-                          style: TextStyle(
-                              color: Colors.red,
-                              fontSize: menu_font_size,
-                          ),),
-                        for(int i=1; i<6; i++)
-                          Text('${menu_mon_2[i]}',
-                            style: TextStyle(
-                              fontSize: menu_font_size,
-                            ),),
                       ],
-                    );
-                  }),
-
-                  Container(
-                    width: 100,
+                    ),
                   ),
-
-                  TimerBuilder.periodic(Duration(milliseconds: 100), builder: (context){
-                    return Column(
+                  Container(
+                    margin: EdgeInsets.all(0),
+                    padding: EdgeInsets.all(20),
+                    width: 200,
+                    height: 300,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(50),
+                      color: Colors.blueAccent[100],
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('석식',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                          ),),
-                        Container(
-                          height: 15,
+                        TimerBuilder.periodic(Duration(milliseconds: 100), builder: (context){
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text('석식',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: menu_fontsize_1
+                                    ),),
+                                  Text("17:00~18:00",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: menu_fontsize_2
+                                    ),),
+                                ],
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Text("1336 Kcal",
+                                    style: TextStyle(
+                                      decoration: TextDecoration.underline,
+                                    ),
+                                  )
+                                ],
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Text(selected_menu_3[0],
+                                style: TextStyle(
+                                    fontSize: menu_fontsize_2,
+                                    color: Colors.red
+                                ),),
+                              for(int i=1; i<6; i++)
+                                Text(selected_menu_3[i],
+                                  style: TextStyle(
+                                    fontSize: menu_fontsize_2,
+                                  ),),
+                              SizedBox(
+                                height: 30,
+                              )
+                            ],
+                          );
+                        }
                         ),
-                        Text('★${menu_mon_3[0]}★',
-                          style: TextStyle(
-                              fontSize: menu_font_size,
-                              color: Colors.red
-                          ),),
-                        for(int i=1; i<6; i++)
-                          Text('${menu_mon_3[i]}',
-                            style: TextStyle(
-                              fontSize: menu_font_size,
-                            ),),
                       ],
-                    );
-                  }),
-                  Container(
-                    width: 50,
-                  ),
-                ],
-              ),
-            ),
-            Divider(
-              height: 20.0,
-              thickness: 1.5,
-              color: Colors.grey,
-            ),
-
-            // 화요일
-            TimerBuilder.periodic(Duration(milliseconds: 100), builder: (context){
-              return Text('$Month_tue월 $Day_tue일',
-                style: TextStyle(
-                  fontSize: 20,
-                ),);
-            }),
-            Text('화요일',
-              style: TextStyle(
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold
-              ),),
-            Container(
-              height: 20,
-            ),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  Container(
-                    width: 50,
-                  ),
-                  TimerBuilder.periodic(Duration(milliseconds: 100), builder: (context){
-                    return
-                      Column(
-                        children: [
-                          Text('조식',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                            ),),
-                          Container(
-                            height: 15,
-                          ),
-                          Text('★${menu_tue_1[0]}★',
-                            style: TextStyle(
-                                fontSize: menu_font_size,
-                                color: Colors.red
-                            ),),
-                          for(int i=1; i<6; i++)
-                            Text('${menu_tue_1[i]}',
-                              style: TextStyle(
-                                fontSize: menu_font_size,
-                              ),),
-                        ],
-                      );
-                  }),
-                  Container(
-                    width: 100,
-                  ),
-                  TimerBuilder.periodic(Duration(milliseconds: 100), builder: (context){
-                    return Column(
-                      children: [
-                        Text('중식',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                          ),),
-                        Container(
-                          height: 15,
-                        ),
-                        Text('★${menu_tue_2[0]}★',
-                          style: TextStyle(
-                              fontSize: menu_font_size,
-                              color: Colors.red
-                          ),),
-                        for(int i=1; i<6; i++)
-                          Text('${menu_tue_2[i]}',
-                            style: TextStyle(
-                              fontSize: menu_font_size,
-                            ),),
-                      ],
-                    );
-                  }),
-
-                  Container(
-                    width: 100,
-                  ),
-
-                  TimerBuilder.periodic(Duration(milliseconds: 100), builder: (context){
-                    return Column(
-                      children: [
-                        Text('석식',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                          ),),
-                        Container(
-                          height: 15,
-                        ),Text('★${menu_tue_3[0]}★',
-                          style: TextStyle(
-                              fontSize: menu_font_size,
-                              color: Colors.red
-                          ),),
-                        for(int i=1; i<6; i++)
-                          Text('${menu_tue_3[i]}',
-                            style: TextStyle(
-                              fontSize: menu_font_size,
-                            ),),
-                      ],
-                    );
-                  }),
-
-                  Container(
-                    width: 50,
-                  ),
-                ],
-              ),
-            ),
-            Divider(
-              height: 20.0,
-              thickness: 1.5,
-              color: Colors.grey,
-            ),
-
-            //수요일
-            TimerBuilder.periodic(Duration(milliseconds: 100), builder: (context){
-              return
-                Text('$Month_wed월 $Day_wed일',
-                  style: TextStyle(
-                    fontSize: 20,
-                  ),);
-            }),
-
-            Text('수요일',
-              style: TextStyle(
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold
-              ),),
-            Container(
-              height: 20,
-            ),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  Container(
-                    width: 50,
-                  ),
-                  TimerBuilder.periodic(Duration(milliseconds: 100), builder: (context){
-                    return Column(
-                      children: [
-                        Text('조식',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                          ),),
-                        Container(
-                          height: 15,
-                        ),Text('★${menu_wed_1[0]}★',
-                          style: TextStyle(
-                              fontSize: menu_font_size,
-                              color: Colors.red
-                          ),),
-                        for(int i=1; i<6; i++)
-                          Text('${menu_wed_1[i]}',
-                            style: TextStyle(
-                              fontSize: menu_font_size,
-                            ),),
-                      ],
-                    );
-                  }),
-
-                  Container(
-                    width: 100,
-                  ),
-                  TimerBuilder.periodic(Duration(milliseconds: 100), builder: (context){
-                    return
-                      Column(
-                        children: [
-                          Text('중식',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                            ),),
-                          Container(
-                            height: 15,
-                          ),
-                          Text('★${menu_wed_2[0]}★',
-                            style: TextStyle(
-                                fontSize: menu_font_size,
-                                color: Colors.red
-                            ),),
-                          for(int i=1; i<6; i++)
-                            Text('${menu_wed_2[i]}',
-                              style: TextStyle(
-                                fontSize: menu_font_size,
-                              ),),
-                        ],
-                      );
-                  }),
-                  Container(
-                    width: 100,
-                  ),
-                  TimerBuilder.periodic(Duration(milliseconds: 100), builder: (context){
-                    return
-                      Column(
-                        children: [
-                          Text('석식',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                            ),),
-                          Container(
-                            height: 15,
-                          ),Text('★${menu_wed_3[0]}★',
-                            style: TextStyle(
-                                fontSize: menu_font_size,
-                                color: Colors.red
-                            ),),
-                          for(int i=1; i<6; i++)
-                            Text('${menu_wed_3[i]}',
-                              style: TextStyle(
-                                fontSize: menu_font_size,
-                              ),),
-                        ],
-                      );
-                  }),
-                  Container(
-                    width: 50,
-                  ),
-                ],
-              ),
-            ),
-            Divider(
-              height: 20.0,
-              thickness: 1.5,
-              color: Colors.grey,
-            ),
-
-            //목요일
-            TimerBuilder.periodic(Duration(milliseconds: 100), builder: (context){
-              return Text('$Month_thu월 $Day_thu일',
-                style: TextStyle(
-                  fontSize: 20,
-                ),);
-            }),
-            Text('목요일',
-              style: TextStyle(
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold
-              ),),
-            Container(
-              height: 20,
-            ),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  Container(
-                    width: 50,
-                  ),
-                  TimerBuilder.periodic(Duration(milliseconds: 100), builder: (context){
-                    return Column(
-                      children: [
-                        Text('조식',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                          ),),
-                        Container(
-                          height: 15,
-                        ),
-                        Text('★${menu_thu_1[0]}★',
-                          style: TextStyle(
-                              fontSize: menu_font_size,
-                              color: Colors.red
-                          ),),
-                        for(int i=1; i<6; i++)
-                          Text('${menu_thu_1[i]}',
-                            style: TextStyle(
-                              fontSize: menu_font_size,
-                            ),),
-                      ],
-                    );
-                  }),
-
-                  Container(
-                    width: 100,
-                  ),
-                  TimerBuilder.periodic(Duration(milliseconds: 100), builder: (context){
-                    return
-                      Column(
-                        children: [
-                          Text('중식',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                            ),),
-                          Container(
-                            height: 15,
-                          ),
-                          Text('★${menu_thu_2[0]}★',
-                            style: TextStyle(
-                                fontSize: menu_font_size,
-                                color: Colors.red
-                            ),),
-                          for(int i=1; i<6; i++)
-                            Text('${menu_thu_2[i]}',
-                              style: TextStyle(
-                                fontSize: menu_font_size,
-                              ),),
-                        ],
-                      );
-                  }),
-                  Container(
-                    width: 100,
-                  ),
-                  TimerBuilder.periodic(Duration(milliseconds: 100), builder: (context){
-                    return
-                      Column(
-                        children: [
-                          Text('석식',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                            ),),
-                          Container(
-                            height: 15,
-                          ),
-                          Text('★${menu_thu_3[0]}★',
-                            style: TextStyle(
-                                fontSize: menu_font_size,
-                                color: Colors.red
-                            ),),
-                          for(int i=1; i<6; i++)
-                            Text('${menu_thu_3[i]}',
-                              style: TextStyle(
-                                fontSize: menu_font_size,
-                              ),),
-                        ],
-                      );
-                  }),
-                  Container(
-                    width: 50,
-                  ),
-                ],
-              ),
-            ),
-            Divider(
-              height: 20.0,
-              thickness: 1.5,
-              color: Colors.grey,
-            ),
-
-            //금요일
-            TimerBuilder.periodic(Duration(milliseconds: 100), builder: (context){
-              return Text('$Month_fri월 $Day_fri일',
-                  style: TextStyle(
-                    fontSize: 20,
-                  ),);
-            }),
-
-            Text('금요일',
-              style: TextStyle(
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold
-              ),),
-            Container(
-              height: 20,
-            ),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  Container(
-                    width: 50,
-                  ),
-                  TimerBuilder.periodic(Duration(milliseconds: 100), builder: (context){
-                    return Column(
-                      children: [
-                        Text('조식',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                          ),),
-                        Container(
-                          height: 15,
-                        ),
-                        Text('★${menu_fri_1[0]}★',
-                          style: TextStyle(
-                              fontSize: menu_font_size,
-                              color: Colors.red
-                          ),),
-                        for(int i=1; i<6; i++)
-                          Text('${menu_fri_1[i]}',
-                            style: TextStyle(
-                              fontSize: menu_font_size,
-                            ),),
-                      ],
-                    );
-                  }),
-
-                  Container(
-                    width: 100,
-                  ),
-                  TimerBuilder.periodic(Duration(milliseconds: 100), builder: (context){
-                    return Column(
-                      children: [
-                        Text('중식',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                          ),),
-                        Container(
-                          height: 15,
-                        ),
-                        Text('★${menu_fri_2[0]}★',
-                          style: TextStyle(
-                              fontSize: menu_font_size,
-                              color: Colors.red
-                          ),),
-                        for(int i=1; i<6; i++)
-                          Text('${menu_fri_2[i]}',
-                            style: TextStyle(
-                              fontSize: menu_font_size,
-                            ),),
-                      ],
-                    );
-                  }),
-
-                  Container(
-                    width: 100,
-                  ),
-                  TimerBuilder.periodic(Duration(milliseconds: 100), builder: (context){
-                    return Column(
-                      children: [
-                        Text('석식',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                          ),),
-                        Container(
-                          height: 15,
-                        ),
-                        Text('★${menu_fri_3[0]}★',
-                          style: TextStyle(
-                              fontSize: menu_font_size,
-                              color: Colors.red
-                          ),),
-                        for(int i=1; i<6; i++)
-                          Text('${menu_fri_3[i]}',
-                            style: TextStyle(
-                              fontSize: menu_font_size,
-                            ),),
-                      ],
-                    );
-                  }),
-
-                  Container(
-                    width: 50,
-                  ),
-                ],
-              ),
-            ),
-            Divider(
-              height: 20.0,
-              thickness: 1.5,
-              color: Colors.grey,
-            ),
-
-            //토요일
-            TimerBuilder.periodic(Duration(milliseconds: 100), builder: (context){
-              return
-                Text('$Month_sat월 $Day_sat일',
-                  style: TextStyle(
-                    fontSize: 20,
-                  ),);
-            }),
-
-            Text('토요일',
-              style: TextStyle(
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold
-              ),),
-            Container(
-              height: 20,
-            ),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  Container(
-                    width: 50,
-                  ),
-                  TimerBuilder.periodic(Duration(milliseconds: 100), builder: (context){
-                    return Column(
-                      children: [
-                        Text('조식',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                          ),),
-                        Container(
-                          height: 15,
-                        ),
-                        Text('★${menu_sat_1[0]}★',
-                          style: TextStyle(
-                              fontSize: menu_font_size,
-                              color: Colors.red
-                          ),),
-                        for(int i=1; i<6; i++)
-                          Text('${menu_sat_1[i]}',
-                            style: TextStyle(
-                              fontSize: menu_font_size,
-                            ),),
-                      ],
-                    );
-                  }),
-
-                  Container(
-                    width: 100,
-                  ),
-                  TimerBuilder.periodic(Duration(milliseconds: 100), builder: (context){
-                    return Column(
-                      children: [
-                        Text('중식',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                          ),),
-                        Container(
-                          height: 15,
-                        ),
-
-                        Text('★${menu_sat_2[0]}★',
-                          style: TextStyle(
-                              fontSize: menu_font_size,
-                              color: Colors.red
-                          ),),
-                        for(int i=1; i<6; i++)
-                          Text('${menu_sat_2[i]}',
-                            style: TextStyle(
-                              fontSize: menu_font_size,
-                            ),),
-                      ],
-                    );
-                  }),
-
-                  Container(
-                    width: 100,
-                  ),
-                  TimerBuilder.periodic(Duration(milliseconds: 100), builder: (context){
-                    return Column(
-                      children: [
-                        Text('석식',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                          ),),
-                        Container(
-                          height: 15,
-                        ),
-                        Text('★${menu_sat_3[0]}★',
-                          style: TextStyle(
-                              fontSize: menu_font_size,
-                              color: Colors.red
-                          ),),
-                        for(int i=1; i<6; i++)
-                          Text('${menu_sat_3[i]}',
-                            style: TextStyle(
-                              fontSize: menu_font_size,
-                            ),),
-                      ],
-                    );
-                  }),
-
-                  Container(
-                    width: 50,
-                  ),
-                ],
-              ),
-            ),
-            Divider(
-              height: 20.0,
-              thickness: 1.5,
-              color: Colors.grey,
-            ),
-
-            //일요일
-            TimerBuilder.periodic(Duration(milliseconds: 100), builder: (context){
-              return
-                Text('$Month_sun월 $Day_sun일',
-                  style: TextStyle(
-                    fontSize: 20,
-                  ),);
-            }),
-
-            Text('일요일',
-              style: TextStyle(
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold
-              ),),
-            Container(
-              height: 20,
-            ),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  Container(
-                    width: 50,
-                  ),
-                  TimerBuilder.periodic(Duration(milliseconds: 100), builder: (context){
-                    return Column(
-                      children: [
-                        Text('조식',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                          ),),
-                        Container(
-                          height: 15,
-                        ),
-                        Text('★${menu_sun_1[0]}★',
-                          style: TextStyle(
-                              fontSize: menu_font_size,
-                              color: Colors.red
-                          ),),
-                        for(int i=1; i<6; i++)
-                          Text('${menu_sun_1[i]}',
-                            style: TextStyle(
-                              fontSize: menu_font_size,
-                            ),),
-                      ],
-                    );
-                  }),
-
-                  Container(
-                    width: 100,
-                  ),
-                  TimerBuilder.periodic(Duration(milliseconds: 100), builder: (context){
-                    return Column(
-                      children: [
-                        Text('중식',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                          ),),
-                        Container(
-                          height: 15,
-                        ),
-                        Text('★${menu_sun_2[0]}★',
-                          style: TextStyle(
-                              fontSize: menu_font_size,
-                              color: Colors.red
-                          ),),
-                        for(int i=1; i<6; i++)
-                          Text('${menu_sun_2[i]}',
-                            style: TextStyle(
-                              fontSize: menu_font_size,
-                            ),),
-                      ],
-                    );
-                  }),
-                  Container(
-                    width: 100,
-                  ),
-                  TimerBuilder.periodic(Duration(milliseconds: 100), builder: (context){
-                    return Column(
-                      children: [
-                        Text('석식',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                          ),),
-                        Container(
-                          height: 15,
-                        ),
-                        Text('★${menu_sun_3[0]}★',
-                          style: TextStyle(
-                              fontSize: menu_font_size,
-                              color: Colors.red
-                          ),),
-                        for(int i=1; i<6; i++)
-                          Text('${menu_sun_3[i]}',
-                            style: TextStyle(
-                              fontSize: menu_font_size,
-                            ),),
-                      ],
-                    );
-                  }),
-                  Container(
-                    width: 50,
+                    ),
                   ),
                 ],
               ),

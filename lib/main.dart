@@ -3,15 +3,11 @@
 import 'package:cnue_food_app/Screen/major_screen.dart';
 import 'package:cnue_food_app/Screen/my_screen.dart';
 import 'package:cnue_food_app/Screen/outfood_screen.dart';
-import 'package:cnue_food_app/Screen/schoolfood_screen.dart';
 import 'package:cnue_food_app/Screen/home_screen.dart';
-import 'package:cnue_food_app/chat_app/login.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_naver_map/flutter_naver_map.dart';
 import 'firebase_options.dart';
-import 'package:cnue_food_app/chat_app/main_screen.dart';
-import 'package:cnue_food_app/chat_app/login.dart';
 const apikey = '비공개';
 
 
@@ -82,7 +78,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.set_meal),
-            label: '제휴 식당',
+            label: '제휴 업체',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),

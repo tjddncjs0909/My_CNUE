@@ -30,6 +30,9 @@ class _MajorInfoScreenState extends State<MajorInfoScreen> {
 
   static int info_num = 20;
 
+  List<String> dropdownList = ['메일 보내기','메일 주소 복사'];
+  String selectedDropdown = '메일 보내기';
+
   static List<String> name = [
     "","","","","","","","","","","","","","",
     "","","","","","","","","","","","","","",
@@ -48,32 +51,13 @@ class _MajorInfoScreenState extends State<MajorInfoScreen> {
   ];
   static List<dynamic> prof_info=[
     "","","","","","","","","","","","","","",
+    "","","","","","","","","","","","","","",
+    "","","","","","","","","","","","","","",
   ];
-
-  prof_info_form(String name, String pos, String mail){
-    return Card(
-      child: ListTile(
-        title: Text(name,
-          style: TextStyle(
-              fontWeight: FontWeight.bold
-          ),),
-        subtitle: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(pos),
-            Text(mail),
-          ],
-        ),
-        trailing: IconButton(
-            onPressed: (){
-              Clipboard.setData(ClipboardData(text: mail));
-              showToast();
-            },
-            icon: Icon(Icons.copy)),
-        isThreeLine: true,
-      ),
-    );
-  }
+  static List<String> mac = [
+    "","","","","","","","","","","","","","","","","","","","","","","","",""
+    ,"","","","","","","","","","","","","","","","","","","","","","","","",
+  ];
 
   Refreshing()async{
     if(widget.major_num + 1 < 10){
@@ -84,13 +68,12 @@ class _MajorInfoScreenState extends State<MajorInfoScreen> {
       }
       );
       for(int i=0; i<info_num; i++){
-        await db.collection('0${widget.major_num + 1}_${widget.majorname}').doc('${i}')
+        db.collection('0${widget.major_num + 1}_${widget.majorname}').doc('${i}')
             .get().then((DocumentSnapshot ds){
           Map<String, dynamic> map = ds.data() as Map<String, dynamic>;
           name[i] = map['name'];
           email[i] = map['email'];
           room[i] = map['room'];
-          prof_info[i] = prof_info_form(name[i], room[i], email[i]);
         }
         );
       }
@@ -104,13 +87,12 @@ class _MajorInfoScreenState extends State<MajorInfoScreen> {
       );
       print(info_num);
       for(int i=0; i<info_num; i++){
-        await db.collection('${widget.major_num + 1}_${widget.majorname}').doc('${i}')
+        db.collection('${widget.major_num + 1}_${widget.majorname}').doc('${i}')
             .get().then((DocumentSnapshot ds){
           Map<String, dynamic> map = ds.data() as Map<String, dynamic>;
           name[i] = map['name'];
           email[i] = map['email'];
           room[i] = map['room'];
-          prof_info[i] = prof_info_form(name[i], room[i], email[i]);
         }
         );
       }
@@ -122,38 +104,34 @@ class _MajorInfoScreenState extends State<MajorInfoScreen> {
         info_num = map['총 숫자'];
       }
       );
-      print(info_num);
       for(int i=0; i<=info_num; i++){
         if(i<9){
-          await db.collection('강사+타학교').doc('lecturer_00${i+1}')
+          db.collection('강사+타학교').doc('lecturer_00${i+1}')
               .get().then((DocumentSnapshot ds){
             Map<String, dynamic> map = ds.data() as Map<String, dynamic>;
             name[i] = map['name'];
             email[i] = map['email'];
             lecture[i] = map['lecture'];
-            prof_info[i] = prof_info_form(name[i], lecture[i], email[i]);
           }
           );
         }
         else if(i<99){
-          await db.collection('강사+타학교').doc('lecturer_0${i+1}')
+          db.collection('강사+타학교').doc('lecturer_0${i+1}')
               .get().then((DocumentSnapshot ds){
             Map<String, dynamic> map = ds.data() as Map<String, dynamic>;
             name[i] = map['name'];
             email[i] = map['email'];
             lecture[i] = map['lecture'];
-            prof_info[i] = prof_info_form(name[i], lecture[i], email[i]);
           }
           );
         }
         else{
-          await db.collection('강사+타학교').doc('lecturer_${i+1}')
+          db.collection('강사+타학교').doc('lecturer_${i+1}')
               .get().then((DocumentSnapshot ds){
             Map<String, dynamic> map = ds.data() as Map<String, dynamic>;
             name[i] = map['name'];
             email[i] = map['email'];
             lecture[i] = map['lecture'];
-            prof_info[i] = prof_info_form(name[i], lecture[i], email[i]);
           }
           );
         }
@@ -163,9 +141,15 @@ class _MajorInfoScreenState extends State<MajorInfoScreen> {
 
 
 
-  void showToast(){
+  void showToast2(){
     Fluttertoast.showToast(
         msg: "이메일이 복사되었습니다.",
+      gravity: ToastGravity.BOTTOM,
+    );
+  }
+  void showToast1(){
+    Fluttertoast.showToast(
+      msg: "새로고침 완료",
       gravity: ToastGravity.BOTTOM,
     );
   }
@@ -181,18 +165,18 @@ class _MajorInfoScreenState extends State<MajorInfoScreen> {
   Widget build(BuildContext context1) {
 
     const List<String> major_position = [
-      "홍익관 4층",
+      "홍익관 407호",
       "홍익관 315호",
       "석우관 208호",
-      "집현관 2층",
+      "집현관 213호",
       "홍익관 207호",
       "과학관 108호",
-      "실과관 108호",
+      "실과관 104호",
       "음악관 101호",
-      "미술관 1층",
-      "체육관 1층",
-      "집현관 3층",
-      "전산관 1층",
+      "미술관 207호",
+      "체육관 104호",
+      "집현관 307호",
+      "전산관 105호",
     ];
 
     const List<String> telnum_link = [
@@ -210,6 +194,20 @@ class _MajorInfoScreenState extends State<MajorInfoScreen> {
       "tel:0332606530", // 컴퓨터 11
     ];
 
+    const List<String> faxnum = [
+      "033-260-3023", // 윤리 0
+      "033-260-3024", // 국어 1
+      "033-260-3025", // 사회 2
+      "033-260-3025", // 교육 3
+      "033-260-3027", // 수학 4
+      "033-260-3028", // 과학 5
+      "033-260-3029", // 실과 6
+      "033-260-3030", // 음악 7
+      "033-260-3031", // 미술 8
+      "033-260-3032", // 체육 9
+      "033-260-3036", // 영어 10
+      "033-260-3037", // 컴퓨터 11
+    ];
     List<String> prof_info_url = [
       "https://www.cnue.ac.kr/ethics/prof/prof-dev.do", // 윤리
       "https://www.cnue.ac.kr/korean/prof/prof-dev.do", // 국어
@@ -255,14 +253,13 @@ class _MajorInfoScreenState extends State<MajorInfoScreen> {
         actions: [
           IconButton(
               onPressed: (){
-                print(info_num);
               },
               icon: Icon(Icons.settings,
                 color: Colors.black,)),
           IconButton(
               onPressed: (){
-                print(prof_info[0]);
                 Refreshing();
+                showToast1();
               },
               color: Colors.black,
               icon: Icon(Icons.refresh_rounded)),
@@ -353,7 +350,7 @@ class _MajorInfoScreenState extends State<MajorInfoScreen> {
                                   SizedBox(
                                     height: 5,
                                   ),
-                                  Text("${telnum[widget.major_num]}",
+                                  Text(telnum[widget.major_num],
                                     style: TextStyle(
                                         fontSize: 20
                                     ),),
@@ -385,7 +382,7 @@ class _MajorInfoScreenState extends State<MajorInfoScreen> {
                                   SizedBox(
                                     height: 5,
                                   ),
-                                  Text("${telnum[widget.major_num]}",
+                                  Text(faxnum[widget.major_num],
                                     style: TextStyle(
                                         fontSize: 20
                                     ),),
@@ -427,21 +424,27 @@ class _MajorInfoScreenState extends State<MajorInfoScreen> {
                 if(widget.majorname != "원어민 / 강사")
                 TextButton(
                     onPressed: (){
-                      launchUrl(Uri.parse(prof_info_url[widget.major_num]));
-                      print(email[0]);
+                      launchUrl(Uri.parse(prof_info_url[widget.major_num]),
+                      mode: LaunchMode.externalApplication);
                     },
                     child: Text("자세히보기 →")),
               ],
             ),
-            Text("1. 아이콘 클릭 시 이메일이 자동 복사 됩니다.",
+            Text("1. 서버로부터 데이터를 가져오는데 약간의 시간이 소요될 수 있습니다.",
               style: TextStyle(
                   fontSize: 15
               ),),
-            Text('2. 비어있거나 잘못된 정보는 제보 해주시면 즉시 반영 하겠습니다.',
+            Text("2. 에러 발생시, 새로고침 시도 또는 인터넷 연결 상태를 확인해주시기 바랍니다.",
+              style: TextStyle(
+                  fontSize: 15,
+                  color: Colors.red
+              ),),
+            Text('3. 비어있거나 잘못된 정보는 제보 해주시면 즉시 수정하도록 하겠습니다.',
               style: TextStyle(
                 fontSize: 15,
               ),
             ),
+
             SizedBox(
               height: 10,
             ),
@@ -450,7 +453,53 @@ class _MajorInfoScreenState extends State<MajorInfoScreen> {
               return Column(
                 children: [
                   for(int i=0; i<info_num; i++)
-                    prof_info[i],
+                    Card(
+                      child: ListTile(
+                        title: Text(name[i],
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold
+                          ),),
+                        subtitle: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            if(widget.majorname != "원어민 / 강사")
+                              Text(room[i]),
+                            if(widget.majorname == "원어민 / 강사")
+                              Text(lecture[i]),
+                            Text(email[i]),
+                          ],
+                        ),
+                        trailing: DropdownButton(
+                          value: selectedDropdown,
+                          items: dropdownList.map((String item) {
+                            return DropdownMenuItem<String>(
+                              child: Text('$item'),
+                              value: item,
+                            );
+                          }).toList(),
+                          onChanged: (String? value) {
+                            setState(() {
+                              selectedDropdown = value!;
+                              if(selectedDropdown == '메일 주소 복사'){
+                                Clipboard.setData(ClipboardData(text: email[i]));
+                                showToast2();
+                              }
+                              else if(selectedDropdown == '메일 보내기'){
+                                final url = Uri(
+                                  scheme: 'mailto',
+                                  path: email[i],
+                                  query: 'subject=Hello&body=Test',
+                                );
+                                launchUrl(url,
+                                    mode: LaunchMode.externalApplication
+                                );
+                              }
+                            });
+                          },
+                        ),
+                        isThreeLine: true,
+                      ),
+                    ),
                 ],
               );
             }
