@@ -1253,7 +1253,7 @@ class _MajorScreenState extends State<MajorScreen> {
                             offset: Offset(0, 3), // changes position of shadow
                           ),
                         ],
-                      ),
+                      )
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.center,
