@@ -24,7 +24,7 @@
 			<string>tel</string>
 		</array>
 		<key>NSLocationWhenInUseUsageDescription</key>
-		<string>This app needs access to location when open.</string>
+		<string>This app needs access to location when open. plase able to accessing location position</string>
 		<key>NSLocationAlwaysUsageDescription</key>
 		<string>This app needs access to location when in the background.</string>
 		<key>CFBundleDevelopmentRegion</key>
